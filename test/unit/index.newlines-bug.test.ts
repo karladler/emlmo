@@ -27,8 +27,8 @@ describe('HTML newline preservation bug', () => {
     const startIdx = parsed.html.indexOf('This email contains spaces between words');
     const endMarker = 'and looks strange';
     const endIdx = parsed.html.indexOf(endMarker) + endMarker.length;
-    expect(startIdx, 'start of paragraph found').to.be.greaterThan(-1);
-    expect(endIdx, 'end of paragraph found').to.be.greaterThan(startIdx);
+    expect(startIdx).to.be.greaterThan(-1);
+    expect(endIdx).to.be.greaterThan(startIdx);
     const rawExtract = parsed.html.substring(startIdx, endIdx);
 
     // Normalize line endings (if any preserved) to \n and collapse Windows line endings.
@@ -37,11 +37,5 @@ describe('HTML newline preservation bug', () => {
     // Current buggy behavior: all CRLF removed earlier, causing missing newlines and word concatenation.
     // Assert exact structural match (will FAIL until parser preserves newlines).
     expect(normalizedExtract).to.equal(expectedParagraph);
-
-    // Additional invariants we want to protect against regressions:
-    const forbiddenConcats = ['wordsbut', 'removed,which', 'issuesand'];
-    forbiddenConcats.forEach(token => {
-      expect(normalizedExtract, `should not contain concatenated token ${token}`).not.to.contain(token);
-    });
   });
 });

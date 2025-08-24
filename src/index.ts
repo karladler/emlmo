@@ -728,25 +728,39 @@ function read(
 			if (typeof content !== 'string') {
 				content = decode(content as Uint8Array, charset);
 			}
-
-			let htmlContent = content.replace(/\r\n|(&quot;)/g, '').replace(/\"/g, `"`);
-
+			// Preserve line breaks; only decode HTML entity &quot; and normalize CRLF to \n for consistency.
+			let htmlContent = (content as string)
+				.replace(/&quot;/g, '"')
+				.replace(/\r\n/g, '\n');
+			// Attempt base64 decode only when header says base64 OR strong heuristic passes.
 			try {
 				if (encoding === 'base64') {
-					htmlContent = Base64.decode(htmlContent);
-				} else if (Base64.btoa(Base64.atob(htmlContent)) == htmlContent) {
-					htmlContent = Base64.atob(htmlContent);
+					const compact = htmlContent.replace(/\s+/g, '');
+					if (/^[A-Za-z0-9+/=]+$/.test(compact) && compact.length % 4 === 0) {
+						htmlContent = Base64.decode(compact);
+					}
+				} else {
+					// Heuristic: if compact text looks base64 (chars + padding, length %4==0) attempt decode.
+					const compact = htmlContent.replace(/\s+/g, '');
+					const base64Like = /^[A-Za-z0-9+/]+={0,2}$/.test(compact) && compact.length % 4 === 0 && compact.length >= 16;
+					if (base64Like) {
+						try {
+							const decodedProbe = Base64.decode(compact);
+							// Require HTML indicative chars or common block tags to accept
+							if (/(<html|<div|<p|<span|<br\b|<h[1-6]|<body)/i.test(decodedProbe)) {
+								htmlContent = decodedProbe;
+							}
+						} catch { /* ignore */ }
+					}
 				}
 			} catch (error) {
-				console.error(error);
+				// Swallow decoding errors silently; keep original htmlContent
 			}
-
 			if (result.html) {
 				result.html += htmlContent;
 			} else {
 				result.html = htmlContent;
 			}
-
 			result.htmlheaders = {
 				'Content-Type': contentType,
 				'Content-Transfer-Encoding': encoding || '',
