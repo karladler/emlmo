@@ -1,6 +1,6 @@
 {
   "include": ["src/**/*.ts"],
-  "exclude": ["dist/**", "coverage/**"],
+  "exclude": ["dist/**", "coverage/**", "src/interface.ts"],
   "reporter": ["text", "lcov"],
   "all": true
 }
