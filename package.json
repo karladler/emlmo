@@ -25,7 +25,8 @@
 		"link:lib": "rimraf node_modules/eml-parse-js && linklocal",
 		"prettier": "prettier --parser typescript --write src/*ts && npm run lint",
 		"prepublishOnly": "npm run prettier && npm run build:publish && npm run test",
-		"test": "mocha -r ts-node/register \"test/**/*test.ts\" --reporter spec"
+		"test": "mocha -r ts-node/register \"test/**/*test.ts\" --reporter spec",
+		"coverage": "c8 mocha -r ts-node/register \"test/**/*test.ts\""
 	},
 	"files": [
 		"dist",
@@ -75,6 +76,7 @@
 		"@eslint/eslintrc": "^3.2.0",
 		"@eslint/js": "^9.17.0",
 		"@types/mocha": "^10.0.6",
+		"c8": "^9.1.0",
 		"chai": "^4.2.0",
 		"eslint": "^9.17.0",
 		"globals": "^15.14.0",
