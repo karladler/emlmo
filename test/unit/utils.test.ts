@@ -44,6 +44,9 @@ describe('utils', () => {
 		it('passes through normal text', () => {
 			expect(mimeDecode('Hello')).to.equal('Hello');
 		});
+			it('handles mixed plain and encoded bytes', () => {
+				expect(mimeDecode('A=48B=69C')).to.equal('A' + 'H' + 'B' + 'i' + 'C');
+			});
 	});
 
 	describe('isStringOrError', () => {
@@ -65,6 +68,15 @@ describe('utils', () => {
 			// ascii should remain readable
 			expect(converted).to.contain('Test');
 		});
+			it('UTF8ToGB2312 handles 2-byte and 3-byte sequences without throwing', () => {
+				// %C3%A9 (é) and %E6%97%A5 (日) embedded
+				const encoded = '%C3%A9%E6%97%A5';
+				const out = GB2312UTF8.UTF8ToGB2312(encoded);
+				expect(out).to.be.a('string');
+			});
+				it('Dig2Dec returns -1 for invalid length', () => {
+				expect((GB2312UTF8 as any).Dig2Dec('101')).to.equal(-1);
+			});
 	});
 });
 

@@ -237,4 +237,74 @@ describe('index.ts core helpers (Batch B)', () => {
   expect(res.text).to.be.a('string');
     });
   });
+
+  describe('multi-part accumulation of repeated text/html parts', () => {
+    it('concatenates multiple text/plain and text/html segments', () => {
+      const boundary = 'MULTIACC';
+      const eml = crlf([
+        'Subject: MultiAccum',
+        `Content-Type: multipart/mixed; boundary="${boundary}"`,
+        '',
+        `--${boundary}`,
+        'Content-Type: text/plain; charset="utf-8"',
+        '',
+        'FirstPlain',
+        `--${boundary}`,
+        'Content-Type: text/plain; charset="utf-8"',
+        '',
+        'SecondPlain',
+        `--${boundary}`,
+        'Content-Type: text/html; charset="utf-8"',
+        '',
+        '<p>FirstHtml</p>',
+        `--${boundary}`,
+        'Content-Type: text/html; charset="utf-8"',
+        '',
+        '<div>SecondHtml</div>',
+        `--${boundary}--`,
+        ''
+      ]);
+      const res: any = readEml(eml);
+      expect(res.text).to.contain('FirstPlain');
+      expect(res.text).to.contain('SecondPlain');
+      expect(res.html).to.contain('FirstHtml');
+      expect(res.html).to.contain('SecondHtml');
+    });
+  });
+
+  describe('triple nested multipart traversal', () => {
+    it('reads deepest alternative part inside related inside mixed', () => {
+      const outer = 'OUT3';
+      const related = 'REL3';
+      const alt = 'ALT3';
+      const eml = crlf([
+        'Subject: TripleNest',
+        `Content-Type: multipart/mixed; boundary="${outer}"`,
+        '',
+        `--${outer}`,
+        `Content-Type: multipart/related; boundary="${related}"`,
+        '',
+        `--${related}`,
+        `Content-Type: multipart/alternative; boundary="${alt}"`,
+        '',
+        `--${alt}`,
+        'Content-Type: text/plain; charset="utf-8"',
+        '',
+        'DeepPlain',
+        `--${alt}`,
+        'Content-Type: text/html; charset="utf-8"',
+        '',
+        '<span>DeepHtml</span>',
+        `--${alt}--`,
+        `--${related}--`,
+        `--${outer}--`,
+        ''
+      ]);
+      const res: any = readEml(eml);
+      expect(res.text).to.contain('DeepPlain');
+      expect(res.html).to.contain('DeepHtml');
+      // multipartAlternative metadata should be set once
+      expect(res.multipartAlternative).to.be.ok;
+    });
+  });
 });
