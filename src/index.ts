@@ -789,16 +789,8 @@ function read(
 
 			let result_name;
 			for (const key of NameContainer) {
-				const rawName = (headers as any)[key];
-				if (!rawName) {
-					continue;
-				}
-				// Some parsers aggregate duplicate headers into arrays; flatten to string
-				const name: string = Array.isArray(rawName) ? rawName.join('; ') : rawName;
-				if (typeof name !== 'string') {
-					continue;
-				}
-				try {
+				const name: string = headers[key];
+				if (name) {
 					result_name = name
 						.replace(/(\s|'|utf-8|\*[0-9]\*)/g, '')
 						.split(';')
@@ -809,12 +801,9 @@ function read(
 							}
 							return a;
 						}, '');
-				} catch (e) {
-					// Fallback: ignore malformed header structure
-					result_name = undefined;
-				}
-				if (result_name) {
-					break;
+					if (result_name) {
+						break;
+					}
 				}
 			}
 			if (result_name) {
