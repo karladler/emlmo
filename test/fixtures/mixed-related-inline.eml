@@ -1,0 +1,29 @@
+MIME-Version: 1.0
+Date: Mon, 25 Aug 2025 10:10:00 +0000
+From: Inline Tester <inline@example.com>
+To: Recipient <rcpt@example.com>
+Subject: Mixed Related Inline
+Content-Type: multipart/mixed; boundary="MIXEDBOUND"
+Message-ID: <mixed-related-inline@example.com>
+
+--MIXEDBOUND
+Content-Type: multipart/related; boundary="RELBOUND"
+
+Content-Type: text/html; charset="UTF-8"
+
+<div dir="ltr"><img src="cid:img123" /></div>
+--RELBOUND
+Content-Type: image/png; name="img.png"
+Content-Transfer-Encoding: base64
+Content-Disposition: inline; filename="img.png"
+Content-ID: <img123>
+
+iVBORw0KGgo=
+--RELBOUND--
+--MIXEDBOUND
+Content-Type: text/plain; charset="UTF-8"; name="note.txt"
+Content-Disposition: attachment; filename="note.txt"
+Content-Transfer-Encoding: base64
+
+Tm90ZSBhdHRhY2htZW50Lg==
+--MIXEDBOUND--
