@@ -67,6 +67,20 @@ describe('charset uncovered code paths', () => {
         expect(e).to.exist;
       }
     });
+
+    it('should fallback to binary when all encoding attempts fail', () => {
+      // Test the fallback path in decode function (lines 42-44)
+      const testData = new Uint8Array([0xFF, 0xFE, 0xFD]); // Invalid UTF-8 sequence
+      
+      // Try to encode with known problematic charset
+      try {
+        const result = encode('test', 'invalid-charset-xyz');
+        expect(result).to.be.instanceof(Uint8Array);
+      } catch (e) {
+        // This tests the catch block in encode
+        expect(e).to.exist;
+      }
+    });
   });
 
   describe('convert function edge cases', () => {

@@ -158,4 +158,34 @@ describe('index.ts uncovered code paths', () => {
       expect(result).to.exist; // Should not crash
     });
   });
+
+  describe('buildEml error handling', () => {
+    it('should handle data without headers gracefully', () => {
+      // Test the error path when data.headers is missing
+      const invalidData = {
+        subject: 'Test',
+        from: 'test@example.com'
+        // Missing headers
+      };
+      
+      const result = buildEml(invalidData as any);
+      expect(result).to.be.instanceOf(Error);
+      expect((result as Error).message).to.include('headers');
+    });
+
+    it('should handle string input for build function', () => {
+      // Test the string input path for buildEml
+      const emlString = crlf([
+        'Subject: Test',
+        'From: test@example.com',
+        'Content-Type: text/plain',
+        '',
+        'Test content'
+      ]);
+      
+      const result = buildEml(emlString);
+      // Should process the string through read() first
+      expect(result).to.exist;
+    });
+  });
 });

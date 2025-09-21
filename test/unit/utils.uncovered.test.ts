@@ -73,11 +73,19 @@ describe('utils uncovered code paths', () => {
       expect(result).to.include('abc');
     });
 
-    it('should return input unchanged when no percentage found', () => {
-      // Tests line 162: return str1 when no % found
-      const testString = 'nopercentage';
+    it('should handle single-byte UTF-8 sequences', () => {
+      // Tests line 171: single-byte (ASCII) UTF-8 handling  
+      const testString = '%48%65%6C%6C%6F'; // "Hello" in hex
       const result = GB2312UTF8.UTF8ToGB2312(testString);
-      expect(result).to.equal(testString);
+      expect(result).to.be.a('string');
+      expect(result).to.include('Hello');
+    });
+
+    it('should handle two-byte UTF-8 sequences correctly', () => {
+      // Tests the two-byte UTF-8 path that may not be fully covered
+      const testString = '%C3%A9'; // 'é' in UTF-8
+      const result = GB2312UTF8.UTF8ToGB2312(testString);
+      expect(result).to.be.a('string');
     });
   });
 
@@ -92,6 +100,13 @@ describe('utils uncovered code paths', () => {
       const result = GB2312UTF8.Dig2Dec('0123');
       expect(result).to.be.a('number');
       expect(result).to.be.at.least(0);
+    });
+
+    it('should return input unchanged when no percentage found', () => {
+      // Tests line 162: return str1 when no % found
+      const testString = 'nopercentage';
+      const result = GB2312UTF8.UTF8ToGB2312(testString);
+      expect(result).to.equal(testString);
     });
   });
 });
