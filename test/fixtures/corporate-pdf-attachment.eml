@@ -1,0 +1,56 @@
+Return-Path: <sarah.johnson@corporatetech.com>
+Received: from mail.corporatetech.com (mail.corporatetech.com [192.168.1.100])
+	by mailserver.company.com (Postfix) with ESMTP id A1B2C3D4E5F6
+	for <john.doe@company.com>; Mon, 15 Jan 2024 09:30:15 +0000 (UTC)
+From: Sarah Johnson <sarah.johnson@corporatetech.com>
+To: John Doe <john.doe@company.com>
+Cc: Mary Smith <mary.smith@company.com>
+Date: Mon, 15 Jan 2024 09:30:12 +0000
+Subject: Q4 Financial Report - Please Review
+Message-ID: <20240115093012.A1B2C3D4E5F6@corporatetech.com>
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="----=_NextPart_000_0001_01DA3F2E.12345678"
+
+This is a multi-part message in MIME format.
+
+------=_NextPart_000_0001_01DA3F2E.12345678
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi John,
+
+Please find attached the Q4 financial report for your review. The key high=
+lights are:
+
+* Revenue increased by 15% compared to Q3
+* Operating costs reduced by 8%
+* Net profit margin improved to 12.5%
+
+Please let me know if you have any questions or need additional clarificat=
+ion.
+
+Best regards,
+Sarah Johnson
+Senior Financial Analyst
+Corporate Tech Solutions
+sarah.johnson@corporatetech.com
++1 (555) 123-4567
+
+------=_NextPart_000_0001_01DA3F2E.12345678
+Content-Type: application/pdf; name="Q4_Financial_Report.pdf"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="Q4_Financial_Report.pdf"
+
+JVBERi0xLjQKJcOkw7zDtsO8DQoxIDAgb2JqCjw8Ci9UeXBlIC9DYXRhbG9nCi9QYWdlcyAyIDAg
+Ugo+PgplbmRvYmoKMiAwIG9iago8PAovVHlwZSAvUGFnZXMKL0tpZHMgWzMgMCBSXQovQ291bnQg
+MQo+PgplbmRvYmoKMyAwIG9iago8PAovVHlwZSAvUGFnZQovUGFyZW50IDIgMCBSCi9NZWRpYUJv
+eCBbMCAwIDYxMiA3OTJdCi9Db250ZW50cyA0IDAgUgo+PgplbmRvYmoKNCAwIG9iago8PAovTGVu
+Z3RoIDEwNgo+PgpzdHJlYW0KQlQKL0YxIDEyIFRmCjcyIDcyMCBUZAooUTQgRmluYW5jaWFsIFJl
+cG9ydCkgVGoKNzIgNzAwIFRkCihSZXZlbnVlOiAkMi41TSkgVGoKNzIgNjgwIFRkCihPcGVyYXRp
+bmcgQ29zdHM6ICQyLjJNKSBUago3MiA2NjAgVGQKKE5ldCBQcm9maXQ6ICQzMDBLKSBUagpFVApl
+bmRzdHJlYW0KZW5kb2JqCnhyZWYKMCA1CjAwMDAwMDAwMDAgNjU1MzUgZiAKMDAwMDAwMDAwOSAw
+MDAwMCBuIAowMDAwMDAwMDU4IDAwMDAwIG4gCjAwMDAwMDAxMTUgMDAwMDAgbiAKMDAwMDAwMDIw
+NSAwMDAwMCBuIAp0cmFpbGVyCjw8Ci9TaXplIDUKL1Jvb3QgMSAwIFIKPj4Kc3RhcnR4cmVmCjM2
+MQolJUVPRgo=
+
+------=_NextPart_000_0001_01DA3F2E.12345678--
