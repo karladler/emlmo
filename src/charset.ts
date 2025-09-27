@@ -22,11 +22,12 @@ export const arr2str = (arr: Uint8Array) => {
 /**
  * Decodes a string from Uint8Array to an unicode string using specified encoding
  *
- * @param {Uint8Array} buf Binary data to be decoded
- * @param {String} Binary data is decoded into string using this charset
+ * @param {Uint8Array|String} buf Binary data to be decoded or string to return as-is
+ * @param {String} fromCharset Encoding to decode from (ignored if buf is already a string)
  * @return {String} Decoded string
  */
-export function decode(buf: Uint8Array, fromCharset = 'utf-8'): string {
+export function decode(buf: Uint8Array | string, fromCharset = 'utf-8'): string {
+	if (typeof buf === "string") return buf;
 	const charsets = [
 		{ charset: normalizeCharset(fromCharset), fatal: false },
 		{ charset: 'utf-8', fatal: true },
