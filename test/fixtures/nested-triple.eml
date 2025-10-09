@@ -1,0 +1,35 @@
+MIME-Version: 1.0
+Date: Mon, 25 Aug 2025 10:15:00 +0000
+From: Triple Nest <triple@example.com>
+To: Deep Receiver <deep@example.com>
+Subject: Triple Nesting
+Message-ID: <nested-triple@example.com>
+Content-Type: multipart/mixed; boundary="OUTER"
+
+--OUTER
+Content-Type: multipart/related; boundary="REL"
+
+--REL
+Content-Type: multipart/alternative; boundary="ALT"
+
+--ALT
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Deep plain
+
+--ALT
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
+
+PGRpdiBkaXI9Imx0ciI+RGVlcCBodG1sPC9kaXY+
+
+--ALT--
+--REL--
+--OUTER
+Content-Type: application/octet-stream; name="file.bin"
+Content-Disposition: attachment; filename="file.bin"
+Content-Transfer-Encoding: base64
+
+QUJD
+--OUTER--

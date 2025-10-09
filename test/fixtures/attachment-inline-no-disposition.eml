@@ -1,0 +1,18 @@
+MIME-Version: 1.0
+Date: Mon, 25 Aug 2025 10:25:00 +0000
+From: NoDisp <nodisp@example.com>
+To: R <r@example.com>
+Subject: Inline Without Disposition
+Content-Type: multipart/mixed; boundary="NODISPBOUND"
+Message-ID: <attachment-inline-no-disposition@example.com>
+
+--NODISPBOUND
+Content-Type: text/html; charset="UTF-8"
+
+PGRpdiBkaXI9Imx0ciI+PGI+Qm9keTwvYj48L2Rpdj4=
+--NODISPBOUND
+Content-Type: image/jpeg; name="photo.jpg"
+Content-Transfer-Encoding: base64
+
+aGVsbG8=
+--NODISPBOUND--

@@ -1,0 +1,19 @@
+MIME-Version: 1.0
+Date: Mon, 25 Aug 2025 10:20:00 +0000
+From: Segmented <seg@example.com>
+To: Receiver <rx@example.com>
+Subject: RFC2231 Segmented Filename
+Content-Type: multipart/mixed; boundary="SEGBOUND"
+Message-ID: <attachment-rfc2231@example.com>
+
+--SEGBOUND
+Content-Type: text/plain; charset="UTF-8"
+
+Segmented filename example
+--SEGBOUND
+Content-Type: application/octet-stream; name*0*="long_"; name*1*="file.txt"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment
+
+QQo=
+--SEGBOUND--
