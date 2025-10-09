@@ -754,7 +754,7 @@ function read(
 					}
 				}
 			} catch (error) {
-				// Swallow decoding errors silently; keep original htmlContent
+				console.error(error);
 			}
 			if (result.html) {
 				result.html += htmlContent;
