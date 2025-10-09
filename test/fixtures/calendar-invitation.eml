@@ -1,0 +1,64 @@
+Return-Path: <calendar@company.com>
+From: Meeting Organizer <meeting.organizer@company.com>
+To: attendee1@company.com, attendee2@company.com
+Date: Mon, 29 Jan 2024 10:15:00 +0000
+Subject: Meeting Invitation: Sprint Planning - Feb 1, 2024
+Message-ID: <calendar-invite-20240129@company.com>
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="calendar-boundary-11111"
+
+--calendar-boundary-11111
+Content-Type: text/plain; charset="utf-8"
+
+You have been invited to attend a meeting:
+
+Event: Sprint Planning
+Date: Thursday, February 1, 2024
+Time: 10:00 AM - 11:30 AM (UTC)
+Location: Conference Room A / Microsoft Teams
+
+Agenda:
+- Review previous sprint outcomes
+- Plan upcoming sprint backlog
+- Discuss team capacity and blockers
+- Set sprint goals and priorities
+
+Please confirm your attendance by replying to this email.
+
+Meeting Organizer
+Project Manager
+meeting.organizer@company.com
+
+--calendar-boundary-11111
+Content-Type: text/calendar; method=REQUEST; name="meeting.ics"
+Content-Disposition: attachment; filename="meeting.ics"
+Content-Transfer-Encoding: quoted-printable
+
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Company Inc//Meeting Scheduler//EN
+METHOD:REQUEST
+BEGIN:VEVENT
+UID:sprint-planning-20240201@company.com
+DTSTART:20240201T100000Z
+DTEND:20240201T113000Z
+SUMMARY:Sprint Planning
+DESCRIPTION:Sprint planning meeting to review previous sprint and plan up=
+coming work. Join via Microsoft Teams or Conference Room A.
+LOCATION:Conference Room A / Microsoft Teams
+ORGANIZER;CN=3DMeeting Organizer:mailto:meeting.organizer@company.com
+ATTENDEE;ROLE=3DREQ-PARTICIPANT;PARTSTAT=3DNEEDS-ACTION;RSVP=3DTRUE;CN=3D=
+Attendee 1:mailto:attendee1@company.com
+ATTENDEE;ROLE=3DREQ-PARTICIPANT;PARTSTAT=3DNEEDS-ACTION;RSVP=3DTRUE;CN=3D=
+Attendee 2:mailto:attendee2@company.com
+STATUS:CONFIRMED
+SEQUENCE:0
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:Sprint Planning reminder
+END:VALARM
+END:VEVENT
+END:VCALENDAR
+
+--calendar-boundary-11111--

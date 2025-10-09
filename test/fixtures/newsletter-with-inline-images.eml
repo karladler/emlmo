@@ -1,0 +1,90 @@
+Return-Path: <newsletter@techblog.com>
+From: Tech Blog Newsletter <newsletter@techblog.com>
+To: subscriber@example.com
+Date: Fri, 19 Jan 2024 08:00:00 +0000
+Subject: =?UTF-8?B?8J+agCBXZWVrbHkgVGVjaCBVcGRhdGVzIC0gQUkgJiBXZWIgRGV2?=
+Message-ID: <newsletter-20240119@techblog.com>
+MIME-Version: 1.0
+Content-Type: multipart/related; boundary="related-boundary-12345"
+
+--related-boundary-12345
+Content-Type: multipart/alternative; boundary="alternative-boundary-67890"
+
+--alternative-boundary-67890
+Content-Type: text/plain; charset="utf-8"
+
+TECH BLOG WEEKLY NEWSLETTER
+===========================
+
+Hi there!
+
+Welcome to this week's tech updates:
+
+1. AI Revolution: New breakthrough in machine learning
+2. Web Development: Latest React 18 features
+3. Cloud Computing: AWS announces new services
+
+Featured Article: "The Future of AI in Web Development"
+Read more at: https://techblog.com/ai-web-dev
+
+Best regards,
+Tech Blog Team
+
+--alternative-boundary-67890
+Content-Type: text/html; charset="utf-8"
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .header { background: #333; color: white; padding: 20px; }
+        .content { padding: 20px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🚀 Tech Blog Weekly Newsletter</h1>
+    </div>
+    <div class="content">
+        <p>Hi there!</p>
+        <p>Welcome to this week's tech updates:</p>
+        <img src="cid:tech-icon" alt="Tech Icon" width="50" height="50">
+        <ol>
+            <li><strong>AI Revolution:</strong> New breakthrough in machine learning</li>
+            <li><strong>Web Development:</strong> Latest React 18 features</li>
+            <li><strong>Cloud Computing:</strong> AWS announces new services</li>
+        </ol>
+        <h2>Featured Article</h2>
+        <img src="cid:article-banner" alt="Featured Article" width="400" height="200">
+        <p><strong>"The Future of AI in Web Development"</strong></p>
+        <p><a href="https://techblog.com/ai-web-dev">Read more →</a></p>
+        <p>Best regards,<br/>Tech Blog Team</p>
+    </div>
+</body>
+</html>
+
+--alternative-boundary-67890--
+
+--related-boundary-12345
+Content-Type: image/png; name="tech-icon.png"
+Content-Disposition: inline; filename="tech-icon.png"
+Content-ID: <tech-icon>
+Content-Transfer-Encoding: base64
+
+iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==
+
+--related-boundary-12345
+Content-Type: image/jpeg; name="article-banner.jpg"
+Content-Disposition: inline; filename="article-banner.jpg"
+Content-ID: <article-banner>
+Content-Transfer-Encoding: base64
+
+/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEB
+AQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEB
+AQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAABAAEDAREA
+AhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEB
+AQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX
+/9k=
+
+--related-boundary-12345--
