@@ -1,0 +1,10 @@
+MIME-Version: 1.0
+Date: Mon, 25 Aug 2025 10:30:00 +0000
+From: Latin2 <latin2@example.com>
+To: R <r@example.com>
+Subject: ISO-8859-2 Eight Bit
+Content-Type: text/plain; charset="iso-8859-2"
+Content-Transfer-Encoding: 8bit
+Message-ID: <nonutf8-8bit@example.com>
+
+Zażółć gęślą jaźń

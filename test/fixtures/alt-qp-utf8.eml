@@ -1,0 +1,19 @@
+MIME-Version: 1.0
+Date: Mon, 25 Aug 2025 10:05:00 +0000
+From: =?UTF-8?Q?Alt_User?= <alt@example.com>
+To: Target <target@example.com>
+Subject: =?UTF-8?Q?Alternative_QP_and_Base64?=
+Content-Type: multipart/alternative; boundary="ALTBOUND123"
+Message-ID: <alt-qp-utf8@example.com>
+
+--ALTBOUND123
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Line one with =5Funderscore=5F.
+
+--ALTBOUND123
+Content-Type: text/html; charset="UTF-8"
+
+PGRpdiBkaXI9Imx0ciI+TGluZSBvbmUgd2l0aCA8ZW0+dW5kZXJsaW5lPC9lbT48L2Rpdj4=
+--ALTBOUND123--

@@ -1,0 +1,74 @@
+Return-Path: <alice.developer@techstartup.io>
+From: Alice Developer <alice.developer@techstartup.io>
+To: Team Lead <team@techstartup.io>
+Date: Wed, 17 Jan 2024 14:22:33 +0200
+Subject: Project Documentation and Assets
+Message-ID: <20240117142233.DEF456@techstartup.io>
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="boundary123456789"
+
+--boundary123456789
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+<html><body>
+<h2>Project Assets Ready for Review</h2>
+<p>Hi team,</p>
+<p>I've attached the following files for the new project:</p>
+<ul>
+<li><strong>README.md</strong> - Project documentation (quoted-printable)</li>
+<li><strong>config.json</strong> - Configuration file (base64)</li>
+<li><strong>logo.png</strong> - Project logo (base64)</li>
+</ul>
+<p>Please review and let me know if any changes are needed.</p>
+<p>Thanks!<br/>Alice</p>
+</body></html>
+
+--boundary123456789
+Content-Type: text/markdown; name="README.md"
+Content-Disposition: attachment; filename="README.md"
+Content-Transfer-Encoding: quoted-printable
+
+# Project Alpha
+
+## Overview
+This is the documentation for Project Alpha, our new customer management =
+system.
+
+## Features
+* User authentication and authorization
+* Customer data management
+* Reporting and analytics
+* RESTful API endpoints
+
+## Installation
+```bash
+npm install
+npm start
+```
+
+## Configuration
+See the attached config.json file for configuration options.
+
+## License
+MIT License - see LICENSE file for details.
+
+--boundary123456789
+Content-Type: application/json; name="config.json"
+Content-Disposition: attachment; filename="config.json"
+Content-Transfer-Encoding: base64
+
+ewogICJhcHBOYW1lIjogIlByb2plY3QgQWxwaGEiLAogICJwb3J0IjogMzAwMCwKICAiZGF0YWJh
+c2UiOiB7CiAgICAiaG9zdCI6ICJsb2NhbGhvc3QiLAogICAgInBvcnQiOiA1NDMyLAogICAgImRh
+dGFiYXNlIjogInByb2plY3RfYWxwaGEiCiAgfSwKICAiand0U2VjcmV0IjogInlvdXItand0LXNl
+Y3JldC1oZXJlIiwKICAibG9nTGV2ZWwiOiAiaW5mbyIKfQo=
+
+--boundary123456789
+Content-Type: image/png; name="logo.png"
+Content-Disposition: attachment; filename="logo.png"
+Content-Transfer-Encoding: base64
+
+iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6
+kgAAAABJRU5ErkJggg==
+
+--boundary123456789--
