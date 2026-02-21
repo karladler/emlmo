@@ -1,7 +1,7 @@
 /// <reference types="mocha" />
 import { expect } from 'chai';
 import { buildEml, readEml, parseEml, createBoundary } from '../../src/index';
-import { Base64 } from 'js-base64';
+import { base64Encode } from '../../src/base64';
 import { GB2312UTF8 } from '../../src/utils';
 
 function crlf(lines: string[]) { return lines.join('\r\n') + '\r\n'; }
@@ -10,7 +10,7 @@ describe('index.ts additional coverage', () => {
   describe('_append html base64 heuristic', () => {
     it('decodes pure base64 html when no encoding header present', () => {
       const boundary = 'BHTML';
-      const pure = Base64.encode('<h1>Hello</h1>'); // will satisfy atob/btoa equality path
+      const pure = base64Encode('<h1>Hello</h1>'); // will satisfy atob/btoa equality path
       const eml = crlf([
         'Subject: HtmlHeuristic',
         `Content-Type: multipart/mixed; boundary="${boundary}"`,
@@ -56,7 +56,7 @@ describe('index.ts additional coverage', () => {
   describe('attachment name from Content-Type only (no filename in disposition)', () => {
     it('extracts concatenated RFC2231 segments when only in Content-Type', () => {
       const boundary = 'ONLYCT';
-      const content = Base64.encode('Z');
+      const content = base64Encode('Z');
       const eml = crlf([
         'Subject: OnlyCT',
         `Content-Type: multipart/mixed; boundary="${boundary}"`,

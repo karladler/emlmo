@@ -13,13 +13,6 @@ export default defineConfig({
         return `${entryName}.${format}.js`
       }
     },
-    rollupOptions: {
-      output: {
-        globals: {
-          'js-base64': 'Base64',
-        }
-      },
-      external: ['js-base64'],
-    }
+    rollupOptions: {}
   }
 })

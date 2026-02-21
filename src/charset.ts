@@ -1,22 +1,14 @@
-import { TextDecoder, TextEncoder } from '@sinonjs/text-encoding';
+export const encode = (str: string, _fromCharset = 'utf-8'): Uint8Array => new TextEncoder().encode(str);
 
-/**
- * Encodes an unicode string into an Uint8Array object as UTF-8
- *
- * @param {String} str String to be encoded
- * @return {Uint8Array} UTF-8 encoded typed array
- */
-export const encode = (str: string, fromCharset = 'utf-8'): Uint8Array => new TextEncoder(fromCharset).encode(str);
+const CHUNK_SZ = 0x8000;
 
-export const arr2str = (arr: Uint8Array) => {
-	const CHUNK_SZ = 0x8000;
-	const strs = [] as any[];
-
+export const arr2str = (arr: Uint8Array): string => {
+	const parts: string[] = [];
 	for (let i = 0; i < arr.length; i += CHUNK_SZ) {
-		strs.push(String.fromCharCode.apply(null, arr.subarray(i, i + CHUNK_SZ) as any));
+		const chunk = arr.subarray(i, i + CHUNK_SZ);
+		parts.push(Array.from(chunk, (b) => String.fromCharCode(b)).join(''));
 	}
-
-	return strs.join('');
+	return parts.join('');
 };
 
 /**
@@ -54,20 +46,12 @@ export function decode(buf: Uint8Array | string, fromCharset = 'utf-8'): string 
 export const convert = (data: string | Uint8Array, fromCharset?: string | undefined): Uint8Array =>
 	typeof data === 'string' ? encode(data) : encode(decode(data, fromCharset));
 
-function normalizeCharset(charset = 'utf-8') {
-	let match;
-
-	if ((match = charset.match(/^utf[-_]?(\d+)$/i))) {
-		return 'UTF-' + match[1];
-	}
-
-	if ((match = charset.match(/^win[-_]?(\d+)$/i))) {
-		return 'WINDOWS-' + match[1];
-	}
-
-	if ((match = charset.match(/^latin[-_]?(\d+)$/i))) {
-		return 'ISO-8859-' + match[1];
-	}
-
+function normalizeCharset(charset = 'utf-8'): string {
+	const utf = charset.match(/^utf[-_]?(\d+)$/i);
+	if (utf) return 'UTF-' + utf[1];
+	const win = charset.match(/^win[-_]?(\d+)$/i);
+	if (win) return 'WINDOWS-' + win[1];
+	const latin = charset.match(/^latin[-_]?(\d+)$/i);
+	if (latin) return 'ISO-8859-' + latin[1];
 	return charset;
 }

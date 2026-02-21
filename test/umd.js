@@ -15,7 +15,6 @@ const path = require("path");
 //   toEmailAddress
 // } from "../lib/bundle.umd";
 const {
-  Base64,
   encode,
   decode,
   getEmailAddress,

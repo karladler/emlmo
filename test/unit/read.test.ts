@@ -1,7 +1,7 @@
 /// <reference types="mocha" />
 import { expect } from 'chai';
+import { base64Encode } from '../../src/base64';
 import { readEml } from '../../src/index';
-import { Base64 } from 'js-base64';
 
 function crlf(lines: string[]) { return lines.join('\r\n') + '\r\n'; }
 
@@ -40,7 +40,7 @@ describe('readEml', () => {
       'Content-Type: text/html; charset="utf-8"',
       'Content-Transfer-Encoding: base64',
       '',
-      Base64.encode('<b>Hi</b>'),
+      base64Encode('<b>Hi</b>'),
       `--${boundary}--`,
       '',
     ]);
@@ -67,7 +67,7 @@ describe('readEml', () => {
       'Content-Transfer-Encoding: base64',
       'Content-Disposition: attachment; filename="note.txt"',
       '',
-      Base64.encode(data),
+      base64Encode(data),
       `--${boundary}--`,
       '',
     ]);

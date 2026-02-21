@@ -92,10 +92,7 @@
 		"vite": "^6.0.3",
 		"vite-plugin-dts": "^4.3.0"
 	},
-	"dependencies": {
-		"@sinonjs/text-encoding": "^0.7.2",
-		"js-base64": "^3.7.2"
-	},
+	"dependencies": {},
 	"gitHooks": {
 		"pre-commit": "lint-staged"
 	},

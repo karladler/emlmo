@@ -16,7 +16,6 @@ const iconv = require('iconv-lite');
 //   toEmailAddress
 // } from "../dist/index";
 const {
-  Base64,
   encode,
   decode,
   getEmailAddress,

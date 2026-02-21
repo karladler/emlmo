@@ -9,7 +9,7 @@ import {
   readEml,
   getBoundary
 } from '../../src/index';
-import { Base64 } from 'js-base64';
+import { base64Encode } from '../../src/base64';
 
 function crlf(lines: string[]) { return lines.join('\r\n') + '\r\n'; }
 
@@ -130,7 +130,7 @@ describe('index.ts core helpers (Batch B)', () => {
   describe('gbk base64 branch in _append (smoke)', () => {
     it('decodes / processes gbk base64 part without throwing', () => {
       const boundary = 'GBKB';
-      const content = Base64.encode('Some Text');
+      const content = base64Encode('Some Text');
       const eml = crlf([
         'Subject: GBK',
         `Content-Type: multipart/mixed; boundary="${boundary}"`,
@@ -151,7 +151,7 @@ describe('index.ts core helpers (Batch B)', () => {
   describe('attachment filename extraction (RFC2231 segments)', () => {
     it('concatenates segmented name*0*, name*1*', () => {
       const boundary = 'ATTSEG';
-      const content = Base64.encode('X');
+      const content = base64Encode('X');
       const eml = crlf([
         'Subject: SegName',
         `Content-Type: multipart/mixed; boundary="${boundary}"`,
@@ -172,7 +172,7 @@ describe('index.ts core helpers (Batch B)', () => {
 
     it('concatenates segmented name parts when no filename fallback present', () => {
       const boundary = 'ATTSEG2';
-      const content = Base64.encode('Y');
+      const content = base64Encode('Y');
       const eml = crlf([
         'Subject: SegName2',
         `Content-Type: multipart/mixed; boundary="${boundary}"`,
@@ -205,7 +205,7 @@ describe('index.ts core helpers (Batch B)', () => {
         'Content-Disposition: inline; filename="pic.png"',
         'Content-ID: <12345@cid>',
         '',
-        Base64.encode('PNGDATA'),
+        base64Encode('PNGDATA'),
         `--${boundary}--`,
         ''
       ]);
