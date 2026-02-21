@@ -19,7 +19,7 @@ export const arr2str = (arr: Uint8Array): string => {
  * @return {String} Decoded string
  */
 export function decode(buf: Uint8Array | string, fromCharset = 'utf-8'): string {
-	if (typeof buf === "string") return buf;
+	if (typeof buf === 'string') return buf;
 	const charsets = [
 		{ charset: normalizeCharset(fromCharset), fatal: false },
 		{ charset: 'utf-8', fatal: true },

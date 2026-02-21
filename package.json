@@ -1,7 +1,7 @@
 {
-  "name": "eml-parse-js",
-  "version": "1.2.0-beta.1",
-  "description": "format EML file in browser env",
+  "name": "emlmo",
+  "version": "0.0.1",
+  "description": "EML (RFC 5322) parser",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.es.js",
   "browser": "./dist/index.es.js",
@@ -32,15 +32,13 @@
   },
   "scripts": {
     "build": "vite build",
-    "build:publish": "npm run clean:dist && npm run build",
-    "clean:dist": "rimraf dist",
+    "build:publish": "npm run build",
     "eslint:init": "eslint --init",
     "lint": "eslint --cache --fix src",
-    "prettier": "prettier --parser typescript --write src/*ts && npm run lint",
-    "prepublishOnly": "npm run prettier && npm run build:publish && npm run test",
+    "prepublishOnly": "npm run lint && npm run build:publish && npm run test",
     "test": "vitest run",
-    "test:watch": "vitest",
-    "coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest"
   },
   "files": [
     "dist",
@@ -57,9 +55,10 @@
     "eml-parser",
     "eml-format-js",
     "eml-parse-js",
+    "email-parser",
     "typescript"
   ],
-  "author": "bean",
+  "author": "Karl Adler",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/karladler/emlmo/issues"
@@ -92,17 +91,16 @@
     }
   ],
   "devDependencies": {
-    "@eslint/js": "^9.17.0",
-    "@types/node": "^24.3.0",
-    "@vitest/coverage-v8": "^2.1.0",
-    "eslint": "^9.17.0",
-    "prettier": "^3.4.2",
-    "rimraf": "^6.0.1",
-    "typescript": "^5.7.2",
-    "typescript-eslint": "^8.18.2",
-    "vite": "^6.0.3",
-    "vite-plugin-dts": "^4.3.0",
-    "vitest": "^2.1.0"
+    "@eslint/js": "^9.36.0",
+    "@stylistic/eslint-plugin": "^5.9.0",
+    "@types/node": "^25.3.0",
+    "@vitest/coverage-v8": "^4.0.18",
+    "eslint": "^9.36.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.56.0",
+    "vite": "^7.3.1",
+    "vite-plugin-dts": "^4.5.4",
+    "vitest": "^4.0.18"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
@@ -110,9 +108,8 @@
   "lint-staged": {
     "src/**/*.ts": [
       "npm run lint",
-      "prettier --parser typescript --write",
       "git add"
     ]
   },
-  "packageManager": "pnpm@9.15.1"
+  "packageManager": "pnpm@10.30.1"
 }
