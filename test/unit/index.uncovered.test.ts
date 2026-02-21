@@ -1,19 +1,9 @@
-/// <reference types="mocha" />
-import { expect } from 'chai';
-import {
-  readEml,
-  parseEml,
-  buildEml,
-  getEmailAddress,
-} from '../../src/index';
+import { describe, it, expect } from 'vitest';
+import { readEml, parseEml, buildEml } from '../../src/index';
 
 function crlf(lines: string[]) { return lines.join('\r\n') + '\r\n'; }
 
-/**
- * Tests targeting previously uncovered code paths in index.ts
- */
 describe('index.ts uncovered code paths', () => {
-  
   describe('readEml CC header variations', () => {
     it('should process CC header (capital letters) when present', () => {
       const eml = crlf([
@@ -27,12 +17,11 @@ describe('index.ts uncovered code paths', () => {
         '',
         'Test message'
       ]);
-      
+
       const result: any = readEml(eml);
-      // This tests the CC header processing path (lines 864-866)
-      expect(result).to.exist;
-      expect(result.headers).to.exist;
-      expect(result.headers.CC).to.exist;
+      expect(result).toBeDefined();
+      expect(result.headers).toBeDefined();
+      expect(result.headers.CC).toBeDefined();
     });
 
     it('should process Cc header (mixed case) when present', () => {
@@ -47,35 +36,39 @@ describe('index.ts uncovered code paths', () => {
         '',
         'Test message'
       ]);
-      
+
       const result: any = readEml(eml);
-      // This tests the Cc header processing path (lines 867-869)
-      expect(result).to.exist;
-      expect(result.headers).to.exist;
-      expect(result.headers.Cc).to.exist;
+      expect(result).toBeDefined();
+      expect(result.headers).toBeDefined();
+      expect(result.headers.Cc).toBeDefined();
     });
   });
 
   describe('readEml error handling for non-string input', () => {
     it('should return error when input is neither string nor object', () => {
       const result = readEml(123 as any);
-      expect(result).to.be.instanceOf(Error);
-      expect((result as Error).message).to.equal('Missing EML file content!');
+      expect(result).toBeInstanceOf(Error);
+      expect((result as Error).message).toBe('Missing EML file content!');
     });
 
-    it('should handle callbacks with error for invalid input', (done) => {
-      readEml(null as any, (error, data) => {
-        expect(error).to.be.a('string'); // Based on the actual error it returns a string "no data"
-        expect(error).to.equal('no data');
-        expect(data).to.be.undefined;
-        done();
+    it('should handle callbacks with error for invalid input', () => {
+      return new Promise<void>((resolve, reject) => {
+        readEml(null as any, (error, data) => {
+          try {
+            expect(typeof error).toBe('string');
+            expect(error).toBe('no data');
+            expect(data).toBeUndefined();
+            resolve();
+          } catch (e) {
+            reject(e);
+          }
+        });
       });
     });
   });
 
   describe('boundary processing edge cases', () => {
     it('should handle undefined boundary part gracefully', () => {
-      // Create an EML with a malformed multipart structure
       const eml = crlf([
         'Content-Type: multipart/mixed; boundary="test-boundary"',
         'Subject: Test malformed boundary',
@@ -85,14 +78,12 @@ describe('index.ts uncovered code paths', () => {
         '',
         'Valid part',
         '--test-boundary',
-        // This creates a boundary block with undefined part
         '--test-boundary--'
       ]);
-      
+
       const result: any = readEml(eml);
-      // Should not throw error, should handle gracefully
-      expect(result).to.exist;
-      expect(result.text).to.exist;
+      expect(result).toBeDefined();
+      expect(result.text).toBeDefined();
     });
 
     it('should handle multipart alternative detection and storage', () => {
@@ -114,10 +105,10 @@ describe('index.ts uncovered code paths', () => {
         '--inner--',
         '--outer--'
       ]);
-      
+
       const result: any = readEml(eml);
-      expect(result.multipartAlternative).to.exist;
-      expect(result.multipartAlternative['Content-Type']).to.include('multipart/alternative');
+      expect(result.multipartAlternative).toBeDefined();
+      expect(result.multipartAlternative['Content-Type']).toContain('multipart/alternative');
     });
 
     it('should handle string boundary blocks in nested multipart', () => {
@@ -134,47 +125,40 @@ describe('index.ts uncovered code paths', () => {
         '--alt--',
         '--test--'
       ]);
-      
+
       const result: any = readEml(eml);
-      // Just check that it processes without error
-      expect(result).to.exist;
-      expect(result.text).to.exist;
+      expect(result).toBeDefined();
+      expect(result.text).toBeDefined();
     });
   });
 
   describe('verbose logging paths', () => {
     it('should handle undefined boundary part with verbose logging', () => {
-      // This is testing the verbose path when b.part is undefined
       const eml = crlf([
         'Content-Type: multipart/mixed; boundary="test"',
         '',
         '--test',
-        // Empty boundary block that could cause undefined part
         '--test--'
       ]);
-      
-      // Enable verbose temporarily to test that path
+
       const result: any = readEml(eml);
-      expect(result).to.exist; // Should not crash
+      expect(result).toBeDefined();
     });
   });
 
   describe('buildEml error handling', () => {
     it('should handle data without headers gracefully', () => {
-      // Test the error path when data.headers is missing
       const invalidData = {
         subject: 'Test',
         from: 'test@example.com'
-        // Missing headers
       };
-      
+
       const result = buildEml(invalidData as any);
-      expect(result).to.be.instanceOf(Error);
-      expect((result as Error).message).to.include('headers');
+      expect(result).toBeInstanceOf(Error);
+      expect((result as Error).message).toContain('headers');
     });
 
     it('should handle string input for build function', () => {
-      // Test the string input path for buildEml
       const emlString = crlf([
         'Subject: Test',
         'From: test@example.com',
@@ -182,10 +166,9 @@ describe('index.ts uncovered code paths', () => {
         '',
         'Test content'
       ]);
-      
+
       const result = buildEml(emlString);
-      // Should process the string through read() first
-      expect(result).to.exist;
+      expect(result).toBeDefined();
     });
   });
 });

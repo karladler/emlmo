@@ -1,5 +1,4 @@
-/// <reference types="mocha" />
-import { expect } from 'chai';
+import { describe, it, expect } from 'vitest';
 import {
   createBoundary,
   getCharset,
@@ -13,27 +12,24 @@ import { base64Encode } from '../../src/base64';
 
 function crlf(lines: string[]) { return lines.join('\r\n') + '\r\n'; }
 
-/**
- * These tests target core helper logic in index.ts to raise coverage around parsing/building
- */
 describe('index.ts core helpers (Batch B)', () => {
   describe('createBoundary', () => {
     it('produces unique-ish values starting with ----=', () => {
       const a = createBoundary();
       const b = createBoundary();
-      expect(a).to.match(/^----=/);
-      expect(b).to.match(/^----=/);
-      expect(a).to.not.equal(b);
+      expect(a).toMatch(/^----=/);
+      expect(b).toMatch(/^----=/);
+      expect(a).not.toBe(b);
     });
   });
 
   describe('getCharset', () => {
     it('extracts charset token ignoring quotes', () => {
       const ct = 'text/plain; charset="iso-8859-2"; format=flowed';
-      expect(getCharset(ct)).to.equal('iso-8859-2');
+      expect(getCharset(ct)).toBe('iso-8859-2');
     });
     it('returns undefined when missing', () => {
-      expect(getCharset('text/plain')).to.equal(undefined);
+      expect(getCharset('text/plain')).toBe(undefined);
     });
   });
 
@@ -46,8 +42,8 @@ describe('index.ts core helpers (Batch B)', () => {
         'Body line'
       ]);
       const parsed: any = parseEml(eml);
-      expect(parsed.headers.Subject).to.equal('Demo');
-      expect(parsed.body).to.equal('Body line\r\n');
+      expect(parsed.headers.Subject).toBe('Demo');
+      expect(parsed.body).toBe('Body line\r\n');
     });
   });
 
@@ -67,19 +63,17 @@ describe('index.ts core helpers (Batch B)', () => {
         ]
       };
       const eml = buildEml(data) as string;
-      // Ensure boundary present and attachment filename appears
-      expect(eml).to.match(/multipart\/mixed/);
-      expect(eml).to.match(/filename="file.txt"/);
+      expect(eml).toMatch(/multipart\/mixed/);
+      expect(eml).toMatch(/filename="file.txt"/);
       const reparsed: any = readEml(eml);
-      expect(reparsed.text).to.contain('Plain body');
-      expect((reparsed.html || '')).to.contain('<p>Hi</p>');
-  expect(reparsed.attachments && reparsed.attachments.length).to.equal(1);
+      expect(reparsed.text).toContain('Plain body');
+      expect((reparsed.html || '')).toContain('<p>Hi</p>');
+      expect(reparsed.attachments && reparsed.attachments.length).toBe(1);
     });
   });
 
   describe('completeBoundary', () => {
     it('converts BoundaryRawData structure with child parts', () => {
-      // Simulate a multipart boundary with one text part
       const boundaryName = 'B1';
       const raw = {
         boundary: boundaryName,
@@ -90,9 +84,9 @@ describe('index.ts core helpers (Batch B)', () => {
         ]
       } as any;
       const converted: any = completeBoundary(raw);
-      expect(converted?.boundary).to.equal(boundaryName);
-      expect(converted?.part.headers['Content-Type']).to.match(/text\/plain/);
-      expect(converted?.part.body).to.equal('Hello Part');
+      expect(converted?.boundary).toBe(boundaryName);
+      expect(converted?.part.headers['Content-Type']).toMatch(/text\/plain/);
+      expect(converted?.part.body).toBe('Hello Part');
     });
   });
 
@@ -120,10 +114,9 @@ describe('index.ts core helpers (Batch B)', () => {
         ''
       ]);
       const res: any = readEml(eml);
-      expect(res.multipartAlternative).to.be.ok;
-  // Implementation returns text without trailing CRLF for this nested case
-  expect(res.text).to.equal('Alt Text');
-      expect(res.html).to.contain('Alt Html');
+      expect(res.multipartAlternative).toBeTruthy();
+      expect(res.text).toBe('Alt Text');
+      expect(res.html).toContain('Alt Html');
     });
   });
 
@@ -144,7 +137,7 @@ describe('index.ts core helpers (Batch B)', () => {
         ''
       ]);
       const res: any = readEml(eml);
-      expect(res.html).to.be.a('string');
+      expect(typeof res.html).toBe('string');
     });
   });
 
@@ -166,8 +159,7 @@ describe('index.ts core helpers (Batch B)', () => {
         ''
       ]);
       const res: any = readEml(eml);
-      // Current implementation stops at first header container (Content-Disposition) producing 'ignored.txt'
-      expect(res.attachments && res.attachments[0].name).to.equal('ignored.txt');
+      expect(res.attachments && res.attachments[0].name).toBe('ignored.txt');
     });
 
     it('concatenates segmented name parts when no filename fallback present', () => {
@@ -187,8 +179,7 @@ describe('index.ts core helpers (Batch B)', () => {
         ''
       ]);
       const res: any = readEml(eml);
-      // Without filename attribute, concatenation occurs
-      expect(res.attachments && res.attachments[0].name).to.equal('multi_part.txt');
+      expect(res.attachments && res.attachments[0].name).toBe('multi_part.txt');
     });
   });
 
@@ -211,15 +202,14 @@ describe('index.ts core helpers (Batch B)', () => {
       ]);
       const res: any = readEml(eml);
       const att = res.attachments[0];
-      expect(att.inline).to.be.true;
-      expect(att.id || att.cid).to.contain('12345@cid');
+      expect(att.inline).toBe(true);
+      expect(att.id || att.cid).toContain('12345@cid');
     });
   });
 
   describe('8bit/binary branch (simulated)', () => {
     it('treats 8bit encoding with non-utf8 charset as binary decode path', () => {
       const boundary = 'EIGHT';
-      // Provide raw bytes as base64 to avoid altering decode; here just simple ascii
       const eml = crlf([
         'Subject: EightBit',
         `Content-Type: multipart/mixed; boundary="${boundary}"`,
@@ -233,8 +223,7 @@ describe('index.ts core helpers (Batch B)', () => {
         ''
       ]);
       const res: any = readEml(eml);
-  // Current implementation path may yield empty string; ensure no crash and string type
-  expect(res.text).to.be.a('string');
+      expect(typeof res.text).toBe('string');
     });
   });
 
@@ -265,10 +254,10 @@ describe('index.ts core helpers (Batch B)', () => {
         ''
       ]);
       const res: any = readEml(eml);
-      expect(res.text).to.contain('FirstPlain');
-      expect(res.text).to.contain('SecondPlain');
-      expect(res.html).to.contain('FirstHtml');
-      expect(res.html).to.contain('SecondHtml');
+      expect(res.text).toContain('FirstPlain');
+      expect(res.text).toContain('SecondPlain');
+      expect(res.html).toContain('FirstHtml');
+      expect(res.html).toContain('SecondHtml');
     });
   });
 
@@ -301,10 +290,9 @@ describe('index.ts core helpers (Batch B)', () => {
         ''
       ]);
       const res: any = readEml(eml);
-      expect(res.text).to.contain('DeepPlain');
-      expect(res.html).to.contain('DeepHtml');
-      // multipartAlternative metadata should be set once
-      expect(res.multipartAlternative).to.be.ok;
+      expect(res.text).toContain('DeepPlain');
+      expect(res.html).toContain('DeepHtml');
+      expect(res.multipartAlternative).toBeTruthy();
     });
   });
 });

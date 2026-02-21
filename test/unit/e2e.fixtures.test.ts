@@ -1,5 +1,4 @@
-/// <reference types="mocha" />
-import { expect } from 'chai';
+import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import { readEml, buildEml } from '../../src/index';
@@ -20,41 +19,39 @@ function summarize(obj: any): Summary {
 }
 
 const fixtures: { name: string; path: string; roundTrip?: boolean; verify: (data: any) => void }[] = [
-  { name: 'simple-plain.eml', path: 'simple-plain.eml', roundTrip: true, verify: d => { expect(d.text).to.match(/simple plain/i); } },
-  { name: 'alt-qp-utf8.eml', path: 'alt-qp-utf8.eml', roundTrip: true, verify: d => { expect(d.html || d.text).to.match(/Line one/i); } },
+  { name: 'simple-plain.eml', path: 'simple-plain.eml', roundTrip: true, verify: d => { expect(d.text).toMatch(/simple plain/i); } },
+  { name: 'alt-qp-utf8.eml', path: 'alt-qp-utf8.eml', roundTrip: true, verify: d => { expect(d.html || d.text).toMatch(/Line one/i); } },
   { name: 'mixed-related-inline.eml', path: 'mixed-related-inline.eml', roundTrip: true, verify: d => {
-      // Expect at least one attachment (the inline image) and its cid captured. Current parser may not always surface inner related HTML as d.html.
-      expect(d.attachments && d.attachments.length).to.be.greaterThan(0);
-      const inlineImg = (d.attachments || []).find((a:any)=>/(img123)/.test(a.id||a.cid||''));
-      expect(inlineImg, 'inline image with cid=img123 present').to.be.ok;
-      // If html surfaced, it should reference the cid. If not, we accept absence (documenting current behavior) without failing.
-      if (d.html) {
-        expect(d.html).to.match(/cid:img123/);
-      }
-    } },
+    expect(d.attachments && d.attachments.length).toBeGreaterThan(0);
+    const inlineImg = (d.attachments || []).find((a: any) => /(img123)/.test(a.id || a.cid || ''));
+    expect(inlineImg).toBeTruthy();
+    if (d.html) {
+      expect(d.html).toMatch(/cid:img123/);
+    }
+  } },
   { name: 'nested-triple.eml', path: 'nested-triple.eml', roundTrip: true, verify: d => {
-      // Triple nesting should produce multipartAlternative metadata and surface at least one of text/html bodies.
-      expect(d.multipartAlternative, 'multipartAlternative metadata').to.be.ok;
-      const hasBody = (typeof d.text === 'string' && d.text.length > 0) || (typeof d.html === 'string' && d.html.length > 0);
-      expect(hasBody, 'at least one body (text or html) present').to.be.true;
-      // If specific bodies are present, assert their content substrings.
-      if (d.text) {
-        // Current parser sometimes skips nested alternative's first text/plain when an outer plain sibling exists.
-        // Accept either the deep alternative text or the outer preface text; still document expectation for future refactor.
-        const textOk = /Deep plain/i.test(d.text) || /Outer preface plain body/i.test(d.text);
-        expect(textOk, 'text contains deep plain or outer preface').to.be.true;
-      }
-      if (d.html) {
-        expect(d.html).to.match(/Deep html/i);
-      }
-      // Attachment file.bin should exist.
-      const fileBin = (d.attachments||[]).find((a:any)=>/file\.bin/.test(a.name||''));
-      expect(fileBin, 'file.bin attachment present').to.be.ok;
-    } },
-  { name: 'attachment-rfc2231.eml', path: 'attachment-rfc2231.eml', roundTrip: true, verify: d => { const a = d.attachments && d.attachments[0]; expect(a && a.name).to.match(/long_file.txt|long_file|long_file\.txt/); } },
-  { name: 'attachment-inline-no-disposition.eml', path: 'attachment-inline-no-disposition.eml', roundTrip: true, verify: d => { expect(d.attachments && d.attachments.some((a:any)=>/photo\.jpg/.test(a.name||''))).to.be.true; } },
-  { name: 'nonutf8-8bit.eml', path: 'nonutf8-8bit.eml', roundTrip: true, verify: d => { expect(d.text || '').to.be.a('string'); } },
-  { name: 'gbk-base64-html.eml', path: 'gbk-base64-html.eml', roundTrip: true, verify: d => { expect(d.html || '').to.be.a('string'); } },
+    expect(d.multipartAlternative).toBeTruthy();
+    const hasBody = (typeof d.text === 'string' && d.text.length > 0) || (typeof d.html === 'string' && d.html.length > 0);
+    expect(hasBody).toBe(true);
+    if (d.text) {
+      const textOk = /Deep plain/i.test(d.text) || /Outer preface plain body/i.test(d.text);
+      expect(textOk).toBe(true);
+    }
+    if (d.html) {
+      expect(d.html).toMatch(/Deep html/i);
+    }
+    const fileBin = (d.attachments || []).find((a: any) => /file\.bin/.test(a.name || ''));
+    expect(fileBin).toBeTruthy();
+  } },
+  { name: 'attachment-rfc2231.eml', path: 'attachment-rfc2231.eml', roundTrip: true, verify: d => {
+    const a = d.attachments && d.attachments[0];
+    expect(a && a.name).toMatch(/long_file.txt|long_file|long_file\.txt/);
+  } },
+  { name: 'attachment-inline-no-disposition.eml', path: 'attachment-inline-no-disposition.eml', roundTrip: true, verify: d => {
+    expect(d.attachments && d.attachments.some((a: any) => /photo\.jpg/.test(a.name || ''))).toBe(true);
+  } },
+  { name: 'nonutf8-8bit.eml', path: 'nonutf8-8bit.eml', roundTrip: true, verify: d => { expect(typeof (d.text || '')).toBe('string'); } },
+  { name: 'gbk-base64-html.eml', path: 'gbk-base64-html.eml', roundTrip: true, verify: d => { expect(typeof (d.html || '')).toBe('string'); } },
 ];
 
 describe('E2E fixtures', () => {
@@ -62,7 +59,7 @@ describe('E2E fixtures', () => {
     it(`parses fixture ${fix.name} consistently`, () => {
       const raw = readFileSync(join(__dirname, '..', 'fixtures', fix.path), 'utf8');
       const first: any = readEml(raw);
-      expect(first).to.be.an('object');
+      expect(first).toBeTypeOf('object');
       fix.verify(first);
       const sum1 = summarize(first);
 
@@ -71,10 +68,9 @@ describe('E2E fixtures', () => {
         if (typeof built === 'string') {
           const reparsed: any = readEml(built);
           const sum2 = summarize(reparsed);
-          // Stable structural fields
-          expect(sum2.subject).to.equal(sum1.subject);
-          expect(sum2.att).to.equal(sum1.att);
-          expect(sum2.alt).to.equal(sum1.alt);
+          expect(sum2.subject).toBe(sum1.subject);
+          expect(sum2.att).toBe(sum1.att);
+          expect(sum2.alt).toBe(sum1.alt);
         }
       }
     });

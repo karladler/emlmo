@@ -1,5 +1,4 @@
-/// <reference types="mocha" />
-import { expect } from 'chai';
+import { describe, it, expect } from 'vitest';
 import { base64Encode } from '../../src/base64';
 import { readEml } from '../../src/index';
 
@@ -17,10 +16,9 @@ describe('readEml', () => {
       'Hello world',
     ]);
     const res: any = readEml(eml);
-  // Library currently preserves a trailing CRLF in text body
-  expect(res.text).to.equal('Hello world\r\n');
-    expect(res.subject).to.equal('Simple');
-    expect(res.from.email || res.from).to.contain('test@example.com');
+    expect(res.text).toBe('Hello world\r\n');
+    expect(res.subject).toBe('Simple');
+    expect((res.from.email || res.from)).toContain('test@example.com');
   });
 
   it('parses multipart mixed with text and html', () => {
@@ -45,8 +43,8 @@ describe('readEml', () => {
       '',
     ]);
     const res: any = readEml(eml);
-    expect(res.text).to.equal('Line\nSecond');
-    expect(res.html).to.contain('<b>Hi</b>');
+    expect(res.text).toBe('Line\nSecond');
+    expect(res.html).toContain('<b>Hi</b>');
   });
 
   it('extracts base64 attachment', () => {
@@ -72,22 +70,21 @@ describe('readEml', () => {
       '',
     ]);
     const res: any = readEml(eml);
-    expect(res.attachments).to.have.length(1);
+    expect(res.attachments).toHaveLength(1);
     const att = res.attachments[0];
-    expect(att.name || att.filename).to.equal('note.txt');
-  // Current implementation exposes base64 string in data64 (not decoded content)
-  expect(att.data64).to.equal('QXR0YWNobWVudCBjb250ZW50');
+    expect(att.name || att.filename).toBe('note.txt');
+    expect(att.data64).toBe('QXR0YWNobWVudCBjb250ZW50');
   });
 
   it('reads from pre-parsed object path (text/plain)', () => {
     const obj = { headers: { 'Content-Type': 'text/plain; charset="utf-8"' }, body: 'Body Text' } as any;
     const res: any = readEml(obj);
-    expect(res.text).to.equal('Body Text');
+    expect(res.text).toBe('Body Text');
   });
 
   it('returns error when object missing headers', () => {
     const bad: any = { body: 'No headers' };
     const res = readEml(bad as any);
-    expect(typeof res === 'string' || res instanceof Error).to.be.true;
+    expect(typeof res === 'string' || res instanceof Error).toBe(true);
   });
 });

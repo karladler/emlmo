@@ -1,5 +1,4 @@
-/// <reference types="mocha" />
-import { expect } from 'chai';
+import { describe, it, expect } from 'vitest';
 import {
   toEmailAddress,
   getEmailAddress,
@@ -10,10 +9,10 @@ import {
 describe('index.ts helpers (Batch A)', () => {
   describe('toEmailAddress', () => {
     it('returns string input unchanged', () => {
-      expect(toEmailAddress('plain@example.com')).to.equal('plain@example.com');
+      expect(toEmailAddress('plain@example.com')).toBe('plain@example.com');
     });
     it('formats single object with name', () => {
-      expect(toEmailAddress({ name: 'User', email: 'user@example.com' })).to.equal('"User" <user@example.com>');
+      expect(toEmailAddress({ name: 'User', email: 'user@example.com' })).toBe('"User" <user@example.com>');
     });
     it('formats array of addresses, skipping missing email gracefully', () => {
       const out = toEmailAddress([
@@ -21,62 +20,61 @@ describe('index.ts helpers (Batch A)', () => {
         { name: 'NoEmail' } as any,
         { email: 'b@example.com' } as any
       ]);
-      expect(out).to.equal('"Alpha" <a@example.com>, "NoEmail" , <b@example.com>');
+      expect(out).toBe('"Alpha" <a@example.com>, "NoEmail" , <b@example.com>');
     });
   });
 
   describe('getEmailAddress', () => {
     it('parses single address to object', () => {
       const res = getEmailAddress('User <user@example.com>');
-      expect(res && !Array.isArray(res)).to.be.true;
-      expect((res as any).email).to.equal('user@example.com');
+      expect(res && !Array.isArray(res)).toBe(true);
+      expect((res as any).email).toBe('user@example.com');
     });
     it('parses multiple addresses to array', () => {
       const res = getEmailAddress('A <a@example.com>, B <b@example.com>');
-      expect(Array.isArray(res)).to.be.true;
+      expect(Array.isArray(res)).toBe(true);
       if (Array.isArray(res)) {
-        expect(res.map(r => r.email)).to.deep.equal(['a@example.com', 'b@example.com']);
+        expect(res.map(r => r.email)).toEqual(['a@example.com', 'b@example.com']);
       }
     });
     it('returns null on empty string', () => {
-      expect(getEmailAddress('')).to.equal(null);
+      expect(getEmailAddress('')).toBe(null);
     });
     it('decodes encoded-word in display name (Base64 + UTF-8)', () => {
       const res = getEmailAddress('=?UTF-8?B?5pel5pys6Kqe?= <jp@example.com>');
-      expect((res as any).name).to.equal('日本語');
+      expect((res as any).name).toBe('日本語');
     });
   });
 
   describe('unquoteString / decodeJoint', () => {
     it('decodes adjacent encoded words (B then Q) preserving original space', () => {
-      // 日本語 + space + André (space preserved because original string had one)
       const input = '=?UTF-8?B?5pel5pys6Kqe?= =?ISO-8859-1?Q?Andr=E9?=';
       const out = unquoteString(input);
-      expect(out).to.equal('日本語 André');
+      expect(out).toBe('日本語 André');
     });
     it('handles folded encoded words across lines preserving space', () => {
       const input = '=?UTF-8?B?5pel5pys6Kqe?=\r\n =?ISO-8859-1?Q?Andr=E9?=';
       const out = unquoteString(input);
-      expect(out).to.equal('日本語 André');
+      expect(out).toBe('日本語 André');
     });
   });
 
   describe('unquotePrintable', () => {
     it('joins soft line breaks', () => {
       const input = 'Soft=\r\nBreak';
-      expect(unquotePrintable(input)).to.equal('SoftBreak');
+      expect(unquotePrintable(input)).toBe('SoftBreak');
     });
     it('replaces underscores with space when qEncoding true', () => {
       const input = 'Hello_World';
-      expect(unquotePrintable(input, 'utf-8', true)).to.equal('Hello World');
+      expect(unquotePrintable(input, 'utf-8', true)).toBe('Hello World');
     });
     it('preserves internal spaces before soft line break (current behavior)', () => {
       const input = 'Line1   =\r\nLine2\t=\r\n';
-      expect(unquotePrintable(input)).to.equal('Line1   Line2\t');
+      expect(unquotePrintable(input)).toBe('Line1   Line2\t');
     });
     it('keeps hard line break (current behavior)', () => {
       const input = 'Trail   \r\nNext=\r\n';
-      expect(unquotePrintable(input)).to.equal('Trail\r\nNext');
+      expect(unquotePrintable(input)).toBe('Trail\r\nNext');
     });
   });
 });
