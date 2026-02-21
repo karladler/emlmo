@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { addressparser } from '../../src/addressparser';
+import { addressparser, Tokenizer } from '../../src/addressparser';
 
 describe('addressparser advanced', () => {
   it('parses address with comment fallback to display name', () => {
@@ -57,5 +57,171 @@ describe('addressparser advanced', () => {
   it('unquoted name containing stray < before address', () => {
     const res = addressparser('Broken < Name <broken@example.com>');
     expect(res[0].address).toBe('broken@example.com');
+  });
+});
+
+describe('addressparser edge inputs', () => {
+  it('returns empty array for empty string', () => {
+    expect(addressparser('')).toEqual([]);
+  });
+
+  it('coerces non-string to string', () => {
+    expect(addressparser(null as any)).toEqual([]);
+    expect(addressparser(undefined as any)).toEqual([]);
+  });
+
+  it('returns empty array for only commas/semicolons and spaces', () => {
+    expect(addressparser('  ,  ;  ,  ')).toEqual([]);
+  });
+
+  it('handles single comma-delimited addresses', () => {
+    const res = addressparser('a@x.com, b@y.com');
+    expect(res).toHaveLength(2);
+    expect(res[0].address).toBe('a@x.com');
+    expect(res[1].address).toBe('b@y.com');
+  });
+});
+
+describe('addressparser name vs address normalization', () => {
+  it('pure email only: sets name to empty', () => {
+    const res = addressparser('foo@bar.com');
+    expect(res[0].address).toBe('foo@bar.com');
+    expect(res[0].name).toBe('');
+  });
+
+  it('pure text without @: sets address to empty', () => {
+    const res = addressparser('Just a Name');
+    expect(res[0].address).toBe('');
+    expect(res[0].name).toBe('Just a Name');
+  });
+
+  it('angle-bracket form: name and address distinct', () => {
+    const res = addressparser('Display Name <disp@example.com>');
+    expect(res[0].address).toBe('disp@example.com');
+    expect(res[0].name).toBe('Display Name');
+  });
+});
+
+describe('addressparser comments', () => {
+  it('comment only as display name when no text', () => {
+    const res = addressparser('(Comment Only) <user@example.com>');
+    expect(res[0].address).toBe('user@example.com');
+    expect(res[0].name).toBe('Comment Only');
+  });
+
+  it('text preferred over comment when both present', () => {
+    const res = addressparser('Real Name (comment) <u@e.com>');
+    expect(res[0].name).toMatch(/Real Name/);
+    expect(res[0].address).toBe('u@e.com');
+  });
+});
+
+describe('addressparser email extraction from text', () => {
+  it('extracts email from end of text', () => {
+    const res = addressparser('Person person@example.com');
+    expect(res[0].address).toBe('person@example.com');
+    expect(res[0].name).toBe('Person');
+  });
+
+  it('extracts email from middle via regex when no exact match', () => {
+    const res = addressparser('Prefix person@example.com Suffix');
+    expect(res[0].address).toBe('person@example.com');
+    expect(res[0].name).toMatch(/Prefix/);
+    expect(res[0].name).toMatch(/Suffix/);
+  });
+
+  it('handles email with multiple @ by taking first match', () => {
+    const res = addressparser('Local@part@domain.com');
+    expect(res[0].address).toBeDefined();
+    expect(res[0].address).toMatch(/@/);
+  });
+});
+
+describe('addressparser groups', () => {
+  it('group with single member', () => {
+    const res = addressparser('Solo: One <one@ex.com>;');
+    expect(res).toHaveLength(1);
+    const g = res[0] as any;
+    expect(g.name).toBe('Solo');
+    expect(g.group).toHaveLength(1);
+    expect(g.group[0].address).toBe('one@ex.com');
+  });
+
+  it('empty group list', () => {
+    const res = addressparser('Empty: ;');
+    expect(res).toHaveLength(1);
+    const g = res[0] as any;
+    expect(g.name).toBe('Empty');
+    expect(g.group).toEqual([]);
+  });
+
+  it('flatten with no groups returns same addresses', () => {
+    const str = 'A <a@x.com>, B <b@x.com>';
+    const normal = addressparser(str);
+    const flat = addressparser(str, { flatten: true });
+    expect(flat).toHaveLength(2);
+    expect(flat[0].address).toBe('a@x.com');
+    expect(flat[1].address).toBe('b@x.com');
+  });
+});
+
+describe('addressparser newlines and whitespace', () => {
+  it('newline in display name becomes space', () => {
+    const res = addressparser('Line1\nLine2 <u@e.com>');
+    expect(res[0].address).toBe('u@e.com');
+    expect(res[0].name).toMatch(/\s/);
+    expect(res[0].name).toMatch(/Line1/);
+    expect(res[0].name).toMatch(/Line2/);
+  });
+
+  it('tab in input is preserved in text', () => {
+    const res = addressparser('Tab\tHere <u@e.com>');
+    expect(res[0].address).toBe('u@e.com');
+    expect(res[0].name).toContain('Tab');
+    expect(res[0].name).toContain('Here');
+  });
+});
+
+describe('Tokenizer', () => {
+  it('tokenizes quoted string and operators', () => {
+    const t = new Tokenizer('"a" <b@c>');
+    const tokens = t.tokenize();
+    const types = tokens.map(x => ({ type: x.type, value: x.value }));
+    expect(types).toContainEqual({ type: 'operator', value: '"' });
+    expect(types).toContainEqual({ type: 'text', value: 'a' });
+    expect(types).toContainEqual({ type: 'operator', value: '<' });
+    expect(types).toContainEqual({ type: 'text', value: 'b@c' });
+    expect(types).toContainEqual({ type: 'operator', value: '>' });
+  });
+
+  it('treats comma and semicolon as delimiters', () => {
+    const t = new Tokenizer('a, b; c');
+    const tokens = t.tokenize();
+    expect(tokens.filter(x => x.type === 'operator').map(x => x.value)).toEqual(
+      expect.arrayContaining([',', ';'])
+    );
+  });
+
+  it('empty string yields no tokens', () => {
+    const t = new Tokenizer('');
+    expect(t.tokenize()).toEqual([]);
+  });
+
+  it('trims token values', () => {
+    const t = new Tokenizer('  x  <  y@z  >  ');
+    const tokens = t.tokenize();
+    const textTokens = tokens.filter(x => x.type === 'text');
+    expect(textTokens.every(x => x.value === x.value.trim())).toBe(true);
+  });
+});
+
+describe('addressparser control characters', () => {
+  it('skips control bytes below 0x21 (except space and tab)', () => {
+    const ctrl1 = String.fromCharCode(1);
+    const ctrl2 = String.fromCharCode(2);
+    const res = addressparser(`Name ${ctrl1}${ctrl2} <user@example.com>`);
+    expect(res[0].address).toBe('user@example.com');
+    expect(res[0].name).not.toContain(ctrl1);
+    expect(res[0].name).not.toContain(ctrl2);
   });
 });
