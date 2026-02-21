@@ -6,13 +6,15 @@ export default defineConfig({
   build: {
     minify: false,
     lib: {
-      entry: 'src/index.ts',
+      entry: {
+        index: 'src/index.ts',
+        parser: 'src/parser.ts',
+        builder: 'src/builder.ts',
+      },
       name: 'EmlParseJs',
-      formats: ['cjs', 'es', 'iife', 'umd'],
-      fileName: (format, entryName) => {
-        return `${entryName}.${format}.js`
-      }
+      formats: ['cjs', 'es'],
+      fileName: (format, entryName) => `${entryName}.${format}.js`,
     },
-    rollupOptions: {}
-  }
+    rollupOptions: {},
+  },
 })

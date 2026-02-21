@@ -4,10 +4,6 @@ import tseslint from 'typescript-eslint';
 export default tseslint.config(eslint.configs.recommended, tseslint.configs.recommended, {
 	ignores: ["dist/*","lib/*"],
 	languageOptions: {
-		globals: {
-			Atomics: 'readonly',
-			SharedArrayBuffer: 'readonly',
-		},
 		ecmaVersion: 2018,
 		sourceType: 'module',
 	},

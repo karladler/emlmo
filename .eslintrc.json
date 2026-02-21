@@ -2,20 +2,16 @@
 	"root": true,
 	"env": {
 		"browser": true,
-		"es6": true
+		"es2022": true
 	},
 	"extends": [
 		// "eslint:all",
 		"eslint:recommended",
 		"plugin:@typescript-eslint/eslint-recommended"
 	],
-	"globals": {
-		"Atomics": "readonly",
-		"SharedArrayBuffer": "readonly"
-	},
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
-		"ecmaVersion": 2018,
+		"ecmaVersion": 2022,
 		"sourceType": "module"
 	},
 	"plugins": [
