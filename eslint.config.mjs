@@ -1,8 +1,9 @@
 import eslint from '@eslint/js';
+import { defineConfig } from 'eslint/config';
 import stylistic from '@stylistic/eslint-plugin';
 import tseslint from 'typescript-eslint';
 
-export default tseslint.config(
+export default defineConfig(
 	eslint.configs.recommended,
 	tseslint.configs.recommended,
 	{
@@ -16,18 +17,7 @@ export default tseslint.config(
 			'@stylistic': stylistic,
 		},
 		rules: {
-			'no-console': 0,
-			'no-var': 'warn',
-			'no-useless-escape': 'off',
-			'no-extra-boolean-cast': 'off',
-			'no-prototype-builtins': 'off',
-			'no-unused-vars': 'off',
-			'prefer-const': 'off',
-			'@typescript-eslint/no-explicit-any': 'off',
-			'@typescript-eslint/no-unused-expressions': 'off',
-			'@typescript-eslint/no-unused-vars': 'off',
-			'@typescript-eslint/no-wrapper-object-types': 'off',
-			'@stylistic/indent': ['error', 'tab'],
+			'@stylistic/indent': ['error', 2],
 			'@stylistic/quotes': ['error', 'single'],
 			'@stylistic/semi': ['error', 'always'],
 			'@stylistic/comma-dangle': ['error', 'always-multiline'],
