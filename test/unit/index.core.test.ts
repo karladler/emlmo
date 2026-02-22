@@ -6,11 +6,10 @@ import {
   buildEml,
   completeBoundary,
   readEml,
-  getBoundary
 } from '../../src/index';
 import { base64Encode } from '../../src/base64';
 
-function crlf(lines: string[]) { return lines.join('\r\n') + '\r\n'; }
+function crlf(lines: string[]) { return `${lines.join('\r\n')}\r\n`; }
 
 describe('index.ts core helpers (Batch B)', () => {
   describe('createBoundary', () => {
@@ -39,7 +38,7 @@ describe('index.ts core helpers (Batch B)', () => {
         'Subject: Demo',
         'Content-Type: text/plain; charset="utf-8"',
         '',
-        'Body line'
+        'Body line',
       ]);
       const parsed: any = parseEml(eml);
       expect(parsed.headers.Subject).toBe('Demo');
@@ -54,13 +53,13 @@ describe('index.ts core helpers (Batch B)', () => {
           'From': 'Tester <tester@example.com>',
           'To': 'dest@example.com',
           'Subject': 'RoundTrip',
-          'Content-Type': 'multipart/mixed; boundary="RTBOUND"'
+          'Content-Type': 'multipart/mixed; boundary="RTBOUND"',
         },
         text: 'Plain body',
         html: '<p>Hi</p>',
         attachments: [
-          { filename: 'file.txt', contentType: 'text/plain', data: 'FileContent' }
-        ]
+          { filename: 'file.txt', contentType: 'text/plain', data: 'FileContent' },
+        ],
       };
       const eml = buildEml(data) as string;
       expect(eml).toMatch(/multipart\/mixed/);
@@ -80,8 +79,8 @@ describe('index.ts core helpers (Batch B)', () => {
         lines: [
           'Content-Type: text/plain; charset="utf-8"',
           '',
-          'Hello Part'
-        ]
+          'Hello Part',
+        ],
       } as any;
       const converted: any = completeBoundary(raw);
       expect(converted?.boundary).toBe(boundaryName);
@@ -111,7 +110,7 @@ describe('index.ts core helpers (Batch B)', () => {
         '<b>Alt Html</b>',
         `--${inner}--`,
         `--${outer}--`,
-        ''
+        '',
       ]);
       const res: any = readEml(eml);
       expect(res.multipartAlternative).toBeTruthy();
@@ -134,7 +133,7 @@ describe('index.ts core helpers (Batch B)', () => {
         '',
         content,
         `--${boundary}--`,
-        ''
+        '',
       ]);
       const res: any = readEml(eml);
       expect(typeof res.html).toBe('string');
@@ -156,7 +155,7 @@ describe('index.ts core helpers (Batch B)', () => {
         '',
         content,
         `--${boundary}--`,
-        ''
+        '',
       ]);
       const res: any = readEml(eml);
       expect(res.attachments && res.attachments[0].name).toBe('ignored.txt');
@@ -176,7 +175,7 @@ describe('index.ts core helpers (Batch B)', () => {
         '',
         content,
         `--${boundary}--`,
-        ''
+        '',
       ]);
       const res: any = readEml(eml);
       expect(res.attachments && res.attachments[0].name).toBe('multi_part.txt');
@@ -198,7 +197,7 @@ describe('index.ts core helpers (Batch B)', () => {
         '',
         base64Encode('PNGDATA'),
         `--${boundary}--`,
-        ''
+        '',
       ]);
       const res: any = readEml(eml);
       const att = res.attachments[0];
@@ -220,7 +219,7 @@ describe('index.ts core helpers (Batch B)', () => {
         '',
         'PlainISO',
         `--${boundary}--`,
-        ''
+        '',
       ]);
       const res: any = readEml(eml);
       expect(typeof res.text).toBe('string');
@@ -251,7 +250,7 @@ describe('index.ts core helpers (Batch B)', () => {
         '',
         '<div>SecondHtml</div>',
         `--${boundary}--`,
-        ''
+        '',
       ]);
       const res: any = readEml(eml);
       expect(res.text).toContain('FirstPlain');
@@ -287,7 +286,7 @@ describe('index.ts core helpers (Batch B)', () => {
         `--${alt}--`,
         `--${related}--`,
         `--${outer}--`,
-        ''
+        '',
       ]);
       const res: any = readEml(eml);
       expect(res.text).toContain('DeepPlain');

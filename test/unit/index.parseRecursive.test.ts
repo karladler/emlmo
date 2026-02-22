@@ -1,14 +1,14 @@
 import { describe, it, expect } from 'vitest';
 import { parseEml } from '../../src/index';
 
-function crlf(lines: string[]) { return lines.join('\r\n') + '\r\n'; }
+function crlf(lines: string[]) { return `${lines.join('\r\n')  }\r\n`; }
 
 describe('parseRecursive edge/error branches', () => {
   it('handles message with missing Content-Type (warn path)', () => {
     const eml = crlf([
       'Subject: NoCT',
       '',
-      'Hello'
+      'Hello',
     ]);
     const parsed: any = parseEml(eml);
     expect(parsed.headers.Subject).toBe('NoCT');
@@ -22,7 +22,7 @@ describe('parseRecursive edge/error branches', () => {
       '',
       'Content-Type: text/plain; charset="utf-8"',
       '',
-      'Late body'
+      'Late body',
     ]);
     const parsed: any = parseEml(eml);
     expect(parsed.headers.Subject).toBe('CTLater');
@@ -35,7 +35,7 @@ describe('parseRecursive edge/error branches', () => {
       'Subject: MPNoBoundary',
       'Content-Type: multipart/mixed',
       '',
-      'Part 1 line'
+      'Part 1 line',
     ]);
     const parsed: any = parseEml(eml);
     expect(parsed.headers['Content-Type']).toBe('multipart/mixed');
@@ -50,7 +50,7 @@ describe('parseRecursive edge/error branches', () => {
       '--BINC',
       'Content-Type: text/plain',
       '',
-      'Hello part'
+      'Hello part',
     ]);
     const parsed: any = parseEml(eml);
     expect(Array.isArray(parsed.body)).toBe(true);
@@ -66,7 +66,7 @@ describe('parseRecursive edge/error branches', () => {
       'X-Test: two',
       'Content-Type: text/plain',
       '',
-      'Body'
+      'Body',
     ]);
     const parsed: any = parseEml(eml);
     expect(parsed.headers.Subject).toBe('Duplicate');

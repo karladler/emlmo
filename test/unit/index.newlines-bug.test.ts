@@ -14,7 +14,7 @@ describe('HTML newline preservation bug', () => {
       'This email contains spaces between words',
       'but as you can see, these are sometimes removed,',
       'which causes readability issues',
-      'and looks strange'
+      'and looks strange',
     ].join('\n');
 
     const startIdx = parsed.html.indexOf('This email contains spaces between words');

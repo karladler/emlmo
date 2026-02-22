@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { parseEml } from '../../src/index';
 
-function crlf(lines: string[]) { return lines.join('\r\n') + '\r\n'; }
+function crlf(lines: string[]) { return `${lines.join('\r\n')  }\r\n`; }
 
 describe('parseRecursive body parsing', () => {
   it('parses single-part text/plain body as string', () => {
@@ -9,7 +9,7 @@ describe('parseRecursive body parsing', () => {
       'Subject: Single',
       'Content-Type: text/plain; charset="utf-8"',
       '',
-      'Hello body line'
+      'Hello body line',
     ]);
     const parsed: any = parseEml(eml);
     expect(parsed.body).toBe('Hello body line\r\n');
@@ -30,7 +30,7 @@ describe('parseRecursive body parsing', () => {
       '',
       '<p>PartTwo</p>',
       `--${b}--`,
-      ''
+      '',
     ]);
     const parsed: any = parseEml(eml);
     expect(Array.isArray(parsed.body)).toBe(true);
@@ -48,12 +48,12 @@ describe('parseRecursive body parsing', () => {
       'Subject: EdgeBoundary',
       `Content-Type: multipart/mixed; boundary="${b}"`,
       '',
-      '--' + b,
+      `--${  b}`,
       'Content-Type: text/plain',
       '',
       'EdgePart',
-      '--' + b + '--',
-      ''
+      `--${  b  }--`,
+      '',
     ]);
     const parsed: any = parseEml(eml);
     expect(parsed.body[0].part.body).toBe('EdgePart\r\n\r\n');
@@ -79,7 +79,7 @@ describe('parseRecursive body parsing', () => {
       '<b>AltHtml</b>',
       `--${inner}--`,
       `--${outer}--`,
-      ''
+      '',
     ]);
     const parsed: any = parseEml(eml);
     const innerBoundary = parsed.body[0].part.body;
@@ -94,7 +94,7 @@ describe('parseRecursive body parsing', () => {
       '',
       'Content-Type: text/plain; charset="utf-8"',
       '',
-      'LateDefined'
+      'LateDefined',
     ]);
     const parsed: any = parseEml(eml);
     expect(parsed.headers['Content-Type']).toMatch(/text\/plain/);
@@ -106,7 +106,7 @@ describe('parseRecursive body parsing', () => {
       'Subject: NoBoundaryAttr',
       'Content-Type: multipart/mixed',
       '',
-      'Just text not really multipart'
+      'Just text not really multipart',
     ]);
     const parsed: any = parseEml(eml);
     expect(parsed.body).toBe('Just text not really multipart\r\n');
@@ -121,7 +121,7 @@ describe('parseRecursive body parsing', () => {
       `--${b}`,
       'Content-Type: text/plain',
       '',
-      'Halfway'
+      'Halfway',
     ]);
     const parsed: any = parseEml(eml);
     expect(parsed.body[0].boundary).toBe(b);
@@ -135,7 +135,7 @@ describe('parseRecursive body parsing', () => {
       'Received: two',
       'Content-Type: text/plain',
       '',
-      'Line'
+      'Line',
     ]);
     const parsed: any = parseEml(eml);
     expect(Array.isArray(parsed.headers.Received)).toBe(true);
@@ -150,7 +150,7 @@ describe('parseRecursive body parsing', () => {
       '  second part',
       '  third part',
       '',
-      'FoldedBody'
+      'FoldedBody',
     ]);
     const parsed: any = parseEml(eml);
     expect(parsed.headers['X-Long']).toBe('first part\r\nsecond part\r\nthird part');

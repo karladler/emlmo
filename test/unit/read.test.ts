@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { base64Encode } from '../../src/base64';
 import { readEml } from '../../src/index';
 
-function crlf(lines: string[]) { return lines.join('\r\n') + '\r\n'; }
+function crlf(lines: string[]) { return `${lines.join('\r\n')  }\r\n`; }
 
 describe('readEml', () => {
   it('parses simple text/plain message', () => {

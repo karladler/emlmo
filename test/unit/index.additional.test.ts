@@ -3,7 +3,7 @@ import { buildEml, readEml, parseEml, createBoundary } from '../../src/index';
 import { base64Encode } from '../../src/base64';
 import { GB2312UTF8 } from '../../src/utils';
 
-function crlf(lines: string[]) { return lines.join('\r\n') + '\r\n'; }
+function crlf(lines: string[]) { return `${lines.join('\r\n')  }\r\n`; }
 
 describe('index.ts additional coverage', () => {
   describe('_append html base64 heuristic', () => {
@@ -19,7 +19,7 @@ describe('index.ts additional coverage', () => {
         '',
         pure,
         `--${boundary}--`,
-        ''
+        '',
       ]);
       const res: any = readEml(eml);
       expect(res.html).toContain('<h1>Hello</h1>');
@@ -34,13 +34,13 @@ describe('index.ts additional coverage', () => {
           'From': 'A <a@example.com>',
           'To': 'b@example.com',
           'Subject': 'EncodePath',
-          'Content-Type': `multipart/mixed; boundary="${boundary}"`
+          'Content-Type': `multipart/mixed; boundary="${boundary}"`,
         },
         text: 'TBody',
         html: '<p>HBody</p>',
         textheaders: {
-          'X-Custom': 'Value'
-        }
+          'X-Custom': 'Value',
+        },
       };
       const eml = buildEml(data, { encode: true, headersOnly: false }) as string;
       expect(eml.indexOf('X-Custom: Value')).toBeGreaterThan(-1);
@@ -65,7 +65,7 @@ describe('index.ts additional coverage', () => {
         '',
         content,
         `--${boundary}--`,
-        ''
+        '',
       ]);
       const res: any = readEml(eml);
       expect(res.attachments[0].name).toBe('partOnly.txt');
@@ -86,7 +86,7 @@ describe('index.ts additional coverage', () => {
         '',
         body,
         `--${boundary}--`,
-        ''
+        '',
       ]);
       const res: any = readEml(eml);
       expect(typeof res.text).toBe('string');

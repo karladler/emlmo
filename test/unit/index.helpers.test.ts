@@ -3,7 +3,7 @@ import {
   toEmailAddress,
   getEmailAddress,
   unquoteString,
-  unquotePrintable
+  unquotePrintable,
 } from '../../src/index';
 
 describe('index.ts helpers (Batch A)', () => {
@@ -18,7 +18,7 @@ describe('index.ts helpers (Batch A)', () => {
       const out = toEmailAddress([
         { name: 'Alpha', email: 'a@example.com' },
         { name: 'NoEmail' } as any,
-        { email: 'b@example.com' } as any
+        { email: 'b@example.com' } as any,
       ]);
       expect(out).toBe('"Alpha" <a@example.com>, "NoEmail" , <b@example.com>');
     });

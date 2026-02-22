@@ -197,7 +197,7 @@ describe('Tokenizer', () => {
     const t = new Tokenizer('a, b; c');
     const tokens = t.tokenize();
     expect(tokens.filter(x => x.type === 'operator').map(x => x.value)).toEqual(
-      expect.arrayContaining([',', ';'])
+      expect.arrayContaining([',', ';']),
     );
   });
 

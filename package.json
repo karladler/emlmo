@@ -33,8 +33,9 @@
   "scripts": {
     "build": "vite build",
     "build:publish": "npm run build",
-    "eslint:init": "eslint --init",
-    "lint": "eslint --cache --fix src",
+    "lint": "eslint src test",
+    "lint:fix": "eslint src test --fix",
+    "types:check": "tsc --noEmit",
     "prepublishOnly": "npm run lint && npm run build:publish && npm run test",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
@@ -64,32 +65,6 @@
     "url": "https://github.com/karladler/emlmo/issues"
   },
   "homepage": "https://github.com/karladler/emlmo#readme",
-  "contributors": [
-    {
-      "name": "Charlie Harding",
-      "url": "https://github.com/c-harding"
-    },
-    {
-      "name": "Pádraig Weeks",
-      "url": "https://github.com/pmweeks98"
-    },
-    {
-      "name": "Thomas Oeser",
-      "url": "https://github.com/thomasoeser"
-    },
-    {
-      "name": "Robert Scheinpflug",
-      "url": "https://github.com/neversun"
-    },
-    {
-      "name": "Bean Q",
-      "url": "https://github.com/MQpeng"
-    },
-    {
-      "name": "Karl Adler",
-      "url": "https://github.com/karladler"
-    }
-  ],
   "devDependencies": {
     "@eslint/js": "^9.36.0",
     "@stylistic/eslint-plugin": "^5.9.0",

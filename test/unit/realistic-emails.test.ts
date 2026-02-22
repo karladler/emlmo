@@ -220,7 +220,7 @@ describe('Realistic Email Parsing - End-to-End Tests', () => {
         'newsletter-with-inline-images.eml',
         'reply-chain-quoted-content.eml',
         'international-unicode-content.eml',
-        'calendar-invitation.eml'
+        'calendar-invitation.eml',
       ];
 
       fixturesList.forEach(fixture => {

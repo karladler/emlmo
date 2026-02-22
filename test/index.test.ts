@@ -4,7 +4,7 @@ import { join } from 'path';
 import { readEml, buildEml } from '../src/index';
 import type { ReadedEmlJson } from '../src/interface';
 
-function crlf(lines: string[]) { return lines.join('\r\n') + '\r\n'; }
+function crlf(lines: string[]) { return `${lines.join('\r\n')  }\r\n`; }
 
 function readEmlForTest(filepath: string, encoding: BufferEncoding = 'utf-8'): ReadedEmlJson {
   const src = join(__dirname, filepath);
@@ -54,7 +54,7 @@ describe('readEml should decode', () => {
 
   it('subjects with spaces correctly', () => {
     const readEmlJson = readEmlForTest('./fixtures/smallEmail.eml');
-    expect(readEmlJson.subject).toBe("Off-The-Beaten-Path Trails You've Never Heard Of!  🌏");
+    expect(readEmlJson.subject).toBe('Off-The-Beaten-Path Trails You\'ve Never Heard Of!  🌏');
     expect(readEmlJson.text?.trim()).toBe('A small body with _underscores.');
     expect(readEmlJson.html).toContain('A small body with _underscores');
   });
@@ -63,7 +63,7 @@ describe('readEml should decode', () => {
     const readEmlJson = readEmlForTest('./fixtures/lineBreakInHeader.eml');
     expect(readEmlJson.headers.Date).toBe('Thu, 29 Sep 2022 12:22:20 +0100');
     expect(readEmlJson.headers['Message-ID']).toBe(
-      '\r\n<CAGFso0R6WbMomMx6mFFJzt_wiL8wRm3sN0YQwXz12Ugbt72XSw@mail.gmail.com>'
+      '\r\n<CAGFso0R6WbMomMx6mFFJzt_wiL8wRm3sN0YQwXz12Ugbt72XSw@mail.gmail.com>',
     );
     expect(readEmlJson.date).toEqual(new Date('Thu, 29 Sep 2022 12:22:20 +0100'));
   });
@@ -103,7 +103,7 @@ describe('readEml should decode', () => {
     const readEmlJson = readEmlForTest('./fixtures/savedWebpage.mhtml');
     expect(readEmlJson.text).toBeUndefined();
     expect(readEmlJson.html).toContain(
-      'The URI of an MHTML aggregate is not the same as the URI of its root'
+      'The URI of an MHTML aggregate is not the same as the URI of its root',
     );
   });
 });
@@ -119,7 +119,7 @@ describe('readEml CC header variations', () => {
       'Date: Fri, 21 Feb 2025 10:00:00 +0000',
       'Content-Type: text/plain',
       '',
-      'Test message'
+      'Test message',
     ]);
 
     const result: any = readEml(eml);
@@ -138,7 +138,7 @@ describe('readEml CC header variations', () => {
       'Date: Fri, 21 Feb 2025 10:00:00 +0000',
       'Content-Type: text/plain',
       '',
-      'Test message'
+      'Test message',
     ]);
 
     const result: any = readEml(eml);
@@ -182,7 +182,7 @@ describe('boundary processing edge cases', () => {
       '',
       'Valid part',
       '--test-boundary',
-      '--test-boundary--'
+      '--test-boundary--',
     ]);
 
     const result: any = readEml(eml);
@@ -207,7 +207,7 @@ describe('boundary processing edge cases', () => {
       '',
       '<p>HTML version</p>',
       '--inner--',
-      '--outer--'
+      '--outer--',
     ]);
 
     const result: any = readEml(eml);
@@ -227,7 +227,7 @@ describe('boundary processing edge cases', () => {
       '',
       'String content in nested structure',
       '--alt--',
-      '--test--'
+      '--test--',
     ]);
 
     const result: any = readEml(eml);
@@ -242,7 +242,7 @@ describe('verbose logging paths', () => {
       'Content-Type: multipart/mixed; boundary="test"',
       '',
       '--test',
-      '--test--'
+      '--test--',
     ]);
 
     const result: any = readEml(eml);
@@ -254,7 +254,7 @@ describe('buildEml error handling', () => {
   it('should handle data without headers gracefully', () => {
     const invalidData = {
       subject: 'Test',
-      from: 'test@example.com'
+      from: 'test@example.com',
     };
 
     const result = buildEml(invalidData as any);
@@ -268,7 +268,7 @@ describe('buildEml error handling', () => {
       'From: test@example.com',
       'Content-Type: text/plain',
       '',
-      'Test content'
+      'Test content',
     ]);
 
     const result = buildEml(emlString);
