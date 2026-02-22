@@ -1,0 +1,31 @@
+{
+  "date": "2025-08-25T10:35:00.000Z",
+  "subject": "GBK HTML",
+  "from": [
+    {
+      "name": "GBK User",
+      "email": "gbk@example.com"
+    }
+  ],
+  "to": [
+    {
+      "name": "R",
+      "email": "r@example.com"
+    }
+  ],
+  "headers": {
+    "mime-version": "1.0",
+    "date": "Mon, 25 Aug 2025 10:35:00 +0000",
+    "from": "GBK User <gbk@example.com>",
+    "to": "R <r@example.com>",
+    "subject": "GBK HTML",
+    "content-type": "text/html; charset=gbk",
+    "content-transfer-encoding": "base64",
+    "message-id": "<gbk-base64-html@example.com>"
+  },
+  "html": "<h1>GBK Text</h1>",
+  "htmlheaders": {
+    "content-type": "text/html; charset=gbk",
+    "content-transfer-encoding": "base64"
+  }
+}

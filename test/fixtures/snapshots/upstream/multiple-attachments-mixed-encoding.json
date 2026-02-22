@@ -1,0 +1,51 @@
+{
+  "date": "2024-01-17T12:22:33.000Z",
+  "subject": "Project Documentation and Assets",
+  "from": [
+    {
+      "name": "Alice Developer",
+      "email": "alice.developer@techstartup.io"
+    }
+  ],
+  "to": [
+    {
+      "name": "Team Lead",
+      "email": "team@techstartup.io"
+    }
+  ],
+  "headers": {
+    "return-path": "<alice.developer@techstartup.io>",
+    "from": "Alice Developer <alice.developer@techstartup.io>",
+    "to": "Team Lead <team@techstartup.io>",
+    "date": "Wed, 17 Jan 2024 14:22:33 +0200",
+    "subject": "Project Documentation and Assets",
+    "message-id": "<20240117142233.DEF456@techstartup.io>",
+    "mime-version": "1.0",
+    "content-type": "multipart/mixed; boundary=\"boundary123456789\""
+  },
+  "html": "<html><body><h2>Project Assets Ready for Review</h2><p>Hi team,</p><p>I've attached the following files for the new project:</p><ul><li><strong>README.md</strong> - Project documentation (quoted-printable)</li><li><strong>config.json</strong> - Configuration file (base64)</li><li><strong>logo.png</strong> - Project logo (base64)</li></ul><p>Please review and let me know if any changes are needed.</p><p>Thanks!<br/>Alice</p></body></html>",
+  "htmlheaders": {
+    "content-type": "text/html; charset=\"utf-8\"",
+    "content-transfer-encoding": "quoted-printable"
+  },
+  "attachments": [
+    {
+      "name": "config.json",
+      "contentType": "application/json; name=\"config.json\"",
+      "inline": false,
+      "data64": "ewogICJhcHBOYW1lIjogIlByb2plY3QgQWxwaGEiLAogICJwb3J0IjogMzAwMCwKICAiZGF0YWJhc2UiOiB7CiAgICAiaG9zdCI6ICJsb2NhbGhvc3QiLAogICAgInBvcnQiOiA1NDMyLAogICAgImRhdGFiYXNlIjogInByb2plY3RfYWxwaGEiCiAgfSwKICAiand0U2VjcmV0IjogInlvdXItand0LXNlY3JldC1oZXJlIiwKICAibG9nTGV2ZWwiOiAiaW5mbyIKfQo="
+    },
+    {
+      "name": "logo.png",
+      "contentType": "image/png; name=\"logo.png\"",
+      "inline": false,
+      "data64": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="
+    },
+    {
+      "name": "README.md",
+      "contentType": "text/markdown; name=\"README.md\"",
+      "inline": false,
+      "data64": ""
+    }
+  ]
+}

@@ -1,19 +1,19 @@
-import { describe, it, expect } from 'vitest';
-import { getCharset, parseEml, completeBoundary, readEml } from '../../src/index';
-import { base64Encode } from '../../src/lib/base64';
+import { describe, it, expect } from 'vitest'
+import { getCharset, parseEml, completeBoundary, readEml } from '../../src/index'
+import { base64Encode } from '../../src/lib/base64'
 
-function crlf(lines: string[]) { return `${lines.join('\r\n')}\r\n`; }
+function crlf(lines: string[]) { return `${lines.join('\r\n')}\r\n` }
 
 describe('index.ts core helpers (Batch B)', () => {
   describe('getCharset', () => {
     it('extracts charset token ignoring quotes', () => {
-      const ct = 'text/plain; charset="iso-8859-2"; format=flowed';
-      expect(getCharset(ct)).toBe('iso-8859-2');
-    });
+      const ct = 'text/plain; charset="iso-8859-2"; format=flowed'
+      expect(getCharset(ct)).toBe('iso-8859-2')
+    })
     it('returns undefined when missing', () => {
-      expect(getCharset('text/plain')).toBe(undefined);
-    });
-  });
+      expect(getCharset('text/plain')).toBe(undefined)
+    })
+  })
 
   describe('parseEml basic', () => {
     it('parses headersOnly vs full body', () => {
@@ -22,16 +22,16 @@ describe('index.ts core helpers (Batch B)', () => {
         'Content-Type: text/plain; charset="utf-8"',
         '',
         'Body line',
-      ]);
-      const parsed: any = parseEml(eml);
-      expect(parsed.headers.Subject).toBe('Demo');
-      expect(parsed.body).toBe('Body line\r\n');
-    });
-  });
+      ])
+      const parsed: any = parseEml(eml)
+      expect(parsed.headers.Subject).toBe('Demo')
+      expect(parsed.body).toBe('Body line\r\n')
+    })
+  })
 
   describe('completeBoundary', () => {
     it('converts BoundaryRawData structure with child parts', () => {
-      const boundaryName = 'B1';
+      const boundaryName = 'B1'
       const raw = {
         boundary: boundaryName,
         lines: [
@@ -39,18 +39,18 @@ describe('index.ts core helpers (Batch B)', () => {
           '',
           'Hello Part',
         ],
-      } as any;
-      const converted: any = completeBoundary(raw);
-      expect(converted?.boundary).toBe(boundaryName);
-      expect(converted?.part.headers['Content-Type']).toMatch(/text\/plain/);
-      expect(converted?.part.body).toBe('Hello Part');
-    });
-  });
+      } as any
+      const converted: any = completeBoundary(raw)
+      expect(converted?.boundary).toBe(boundaryName)
+      expect(converted?.part.headers['Content-Type']).toMatch(/text\/plain/)
+      expect(converted?.part.body).toBe('Hello Part')
+    })
+  })
 
   describe('nested multipart + multipartAlternative capture', () => {
     it('captures multipartAlternative and inner bodies', () => {
-      const outer = 'OUTBND';
-      const inner = 'INBND';
+      const outer = 'OUTBND'
+      const inner = 'INBND'
       const eml = crlf([
         'Subject: Nested',
         `Content-Type: multipart/mixed; boundary="${outer}"`,
@@ -69,18 +69,18 @@ describe('index.ts core helpers (Batch B)', () => {
         `--${inner}--`,
         `--${outer}--`,
         '',
-      ]);
-      const res: any = readEml(eml);
-      expect(res.multipartAlternative).toBeTruthy();
-      expect(res.text).toBe('Alt Text');
-      expect(res.html).toContain('Alt Html');
-    });
-  });
+      ])
+      const res: any = readEml(eml)
+      expect(res.multipartAlternative).toBeTruthy()
+      expect(res.text).toBe('Alt Text')
+      expect(res.html).toContain('Alt Html')
+    })
+  })
 
   describe('gbk base64 branch in _append (smoke)', () => {
     it('decodes / processes gbk base64 part without throwing', () => {
-      const boundary = 'GBKB';
-      const content = base64Encode('Some Text');
+      const boundary = 'GBKB'
+      const content = base64Encode('Some Text')
       const eml = crlf([
         'Subject: GBK',
         `Content-Type: multipart/mixed; boundary="${boundary}"`,
@@ -92,16 +92,16 @@ describe('index.ts core helpers (Batch B)', () => {
         content,
         `--${boundary}--`,
         '',
-      ]);
-      const res: any = readEml(eml);
-      expect(typeof res.html).toBe('string');
-    });
-  });
+      ])
+      const res: any = readEml(eml)
+      expect(typeof res.html).toBe('string')
+    })
+  })
 
   describe('attachment filename extraction (RFC2231 segments)', () => {
     it('concatenates segmented name*0*, name*1*', () => {
-      const boundary = 'ATTSEG';
-      const content = base64Encode('X');
+      const boundary = 'ATTSEG'
+      const content = base64Encode('X')
       const eml = crlf([
         'Subject: SegName',
         `Content-Type: multipart/mixed; boundary="${boundary}"`,
@@ -114,14 +114,14 @@ describe('index.ts core helpers (Batch B)', () => {
         content,
         `--${boundary}--`,
         '',
-      ]);
-      const res: any = readEml(eml);
-      expect(res.attachments && res.attachments[0].name).toBe('ignored.txt');
-    });
+      ])
+      const res: any = readEml(eml)
+      expect(res.attachments && res.attachments[0].name).toBe('ignored.txt')
+    })
 
     it('concatenates segmented name parts when no filename fallback present', () => {
-      const boundary = 'ATTSEG2';
-      const content = base64Encode('Y');
+      const boundary = 'ATTSEG2'
+      const content = base64Encode('Y')
       const eml = crlf([
         'Subject: SegName2',
         `Content-Type: multipart/mixed; boundary="${boundary}"`,
@@ -134,15 +134,15 @@ describe('index.ts core helpers (Batch B)', () => {
         content,
         `--${boundary}--`,
         '',
-      ]);
-      const res: any = readEml(eml);
-      expect(res.attachments && res.attachments[0].name).toBe('multi_part.txt');
-    });
-  });
+      ])
+      const res: any = readEml(eml)
+      expect(res.attachments && res.attachments[0].name).toBe('multi_part.txt')
+    })
+  })
 
   describe('inline attachment with cid', () => {
     it('captures cid and inline flag', () => {
-      const boundary = 'INLINE';
+      const boundary = 'INLINE'
       const eml = crlf([
         'Subject: InlineCID',
         `Content-Type: multipart/mixed; boundary="${boundary}"`,
@@ -156,17 +156,17 @@ describe('index.ts core helpers (Batch B)', () => {
         base64Encode('PNGDATA'),
         `--${boundary}--`,
         '',
-      ]);
-      const res: any = readEml(eml);
-      const att = res.attachments[0];
-      expect(att.inline).toBe(true);
-      expect(att.id || att.cid).toContain('12345@cid');
-    });
-  });
+      ])
+      const res: any = readEml(eml)
+      const att = res.attachments[0]
+      expect(att.inline).toBe(true)
+      expect(att.id || att.cid).toContain('12345@cid')
+    })
+  })
 
   describe('8bit/binary branch (simulated)', () => {
     it('treats 8bit encoding with non-utf8 charset as binary decode path', () => {
-      const boundary = 'EIGHT';
+      const boundary = 'EIGHT'
       const eml = crlf([
         'Subject: EightBit',
         `Content-Type: multipart/mixed; boundary="${boundary}"`,
@@ -178,15 +178,15 @@ describe('index.ts core helpers (Batch B)', () => {
         'PlainISO',
         `--${boundary}--`,
         '',
-      ]);
-      const res: any = readEml(eml);
-      expect(typeof res.text).toBe('string');
-    });
-  });
+      ])
+      const res: any = readEml(eml)
+      expect(typeof res.text).toBe('string')
+    })
+  })
 
   describe('multi-part accumulation of repeated text/html parts', () => {
     it('concatenates multiple text/plain and text/html segments', () => {
-      const boundary = 'MULTIACC';
+      const boundary = 'MULTIACC'
       const eml = crlf([
         'Subject: MultiAccum',
         `Content-Type: multipart/mixed; boundary="${boundary}"`,
@@ -209,20 +209,20 @@ describe('index.ts core helpers (Batch B)', () => {
         '<div>SecondHtml</div>',
         `--${boundary}--`,
         '',
-      ]);
-      const res: any = readEml(eml);
-      expect(res.text).toContain('FirstPlain');
-      expect(res.text).toContain('SecondPlain');
-      expect(res.html).toContain('FirstHtml');
-      expect(res.html).toContain('SecondHtml');
-    });
-  });
+      ])
+      const res: any = readEml(eml)
+      expect(res.text).toContain('FirstPlain')
+      expect(res.text).toContain('SecondPlain')
+      expect(res.html).toContain('FirstHtml')
+      expect(res.html).toContain('SecondHtml')
+    })
+  })
 
   describe('triple nested multipart traversal', () => {
     it('reads deepest alternative part inside related inside mixed', () => {
-      const outer = 'OUT3';
-      const related = 'REL3';
-      const alt = 'ALT3';
+      const outer = 'OUT3'
+      const related = 'REL3'
+      const alt = 'ALT3'
       const eml = crlf([
         'Subject: TripleNest',
         `Content-Type: multipart/mixed; boundary="${outer}"`,
@@ -245,11 +245,11 @@ describe('index.ts core helpers (Batch B)', () => {
         `--${related}--`,
         `--${outer}--`,
         '',
-      ]);
-      const res: any = readEml(eml);
-      expect(res.text).toContain('DeepPlain');
-      expect(res.html).toContain('DeepHtml');
-      expect(res.multipartAlternative).toBeTruthy();
-    });
-  });
-});
+      ])
+      const res: any = readEml(eml)
+      expect(res.text).toContain('DeepPlain')
+      expect(res.html).toContain('DeepHtml')
+      expect(res.multipartAlternative).toBeTruthy()
+    })
+  })
+})

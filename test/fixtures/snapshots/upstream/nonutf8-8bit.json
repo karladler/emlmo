@@ -1,0 +1,31 @@
+{
+  "date": "2025-08-25T10:30:00.000Z",
+  "subject": "ISO-8859-2 Eight Bit",
+  "from": [
+    {
+      "name": "Latin2",
+      "email": "latin2@example.com"
+    }
+  ],
+  "to": [
+    {
+      "name": "R",
+      "email": "r@example.com"
+    }
+  ],
+  "headers": {
+    "mime-version": "1.0",
+    "date": "Mon, 25 Aug 2025 10:30:00 +0000",
+    "from": "Latin2 <latin2@example.com>",
+    "to": "R <r@example.com>",
+    "subject": "ISO-8859-2 Eight Bit",
+    "content-type": "text/plain; charset=\"iso-8859-2\"",
+    "content-transfer-encoding": "8bit",
+    "message-id": "<nonutf8-8bit@example.com>"
+  },
+  "text": "",
+  "textheaders": {
+    "content-type": "text/plain; charset=\"iso-8859-2\"",
+    "content-transfer-encoding": "8bit"
+  }
+}

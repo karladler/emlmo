@@ -1,0 +1,47 @@
+{
+  "date": "2022-09-29T11:22:20.000Z",
+  "subject": "A subject with spaces",
+  "from": [
+    {
+      "name": "Nobody there",
+      "email": "dummyEmail@emailClient.com"
+    }
+  ],
+  "to": [
+    {
+      "name": "Nobody here",
+      "email": "dummyEmail2@emailClient.com"
+    }
+  ],
+  "headers": {
+    "mime-version": "1.0",
+    "date": "Thu, 29 Sep 2022 12:22:20 +0100",
+    "message-id": "\r\n<CAGFso0R6WbMomMx6mFFJzt_wiL8wRm3sN0YQwXz12Ugbt72XSw@mail.gmail.com>",
+    "subject": "A subject with spaces",
+    "from": "=?UTF-8?Q?Nobody_there?= <dummyEmail@emailClient.com>",
+    "to": "=?UTF-8?Q?Nobody_here?= <dummyEmail2@emailClient.com>",
+    "content-type": "multipart/related; \r\nBoundary=\"0__=4EBB03D9DFA98AD48f9e8a93df938690918c4EBB03D9DFA98AD4\""
+  },
+  "text": "This is a test",
+  "html": "<html><body><p><font size=\"2\" face=\"sans-serif\">This is a test</font><br></body></html>",
+  "multipartAlternative": {
+    "Content-Type": "multipart/alternative; \r\nBoundary=\"1__=4EBB03D9DFA98AD48f9e8a93df938690918c4EBB03D9DFA98AD4\""
+  },
+  "textheaders": {
+    "content-type": "text/plain; charset=ISO-8859-1",
+    "content-transfer-encoding": "quoted-printable"
+  },
+  "htmlheaders": {
+    "content-type": "text/html; charset=ISO-8859-1",
+    "content-transfer-encoding": "quoted-printable"
+  },
+  "attachments": [
+    {
+      "name": "ecblank.gif",
+      "contentType": "image/gif; \r\nname=\"ecblank.gif\"",
+      "inline": true,
+      "data64": "R0lGODlhEAABAIAAAAAAAP///yH5BAEAAAEALAAAAAAAAAAQAAEAAAIEjI8ZBQA7",
+      "id": "<1__=4EBB03D9DFA98AD48f9e8a93df938690918c4EBB03D9DFA98AD4@gmail.com>"
+    }
+  ]
+}

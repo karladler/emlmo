@@ -53,7 +53,8 @@ export interface Attachment {
 
 /**
  * EML headers
- * @description `MIME-Version`, `Accept-Language`, `Content-Language` and `Content-Type` shuld Must exist when to build a EML file
+ * `MIME-Version`, `Accept-Language`, `Content-Language` 
+ * and `Content-Type` shuld Must exist when to build a EML file
  */
 export interface EmlHeaders extends KeyValue {
   Date?: string;
@@ -77,9 +78,9 @@ export interface Options {
   headersOnly: boolean;
 }
 
-export type CallbackFn<T> = (error: unknown, result?: T) => void;
+export type CallbackFn<T> = (error: unknown, result?: T) => void
 
-export type OptionOrNull = Options | null;
+export type OptionOrNull = Options | null
 
 /**
  * BoundaryRawData

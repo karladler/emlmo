@@ -1,8 +1,8 @@
-import { describe, it, expect } from 'vitest';
-import { base64Encode } from '../../src/lib/base64';
-import { readEml } from '../../src/index';
+import { describe, it, expect } from 'vitest'
+import { base64Encode } from '../../src/lib/base64'
+import { readEml } from '../../src/index'
 
-function crlf(lines: string[]) { return `${lines.join('\r\n')  }\r\n`; }
+function crlf(lines: string[]) { return `${lines.join('\r\n')  }\r\n` }
 
 describe('readEml', () => {
   it('parses simple text/plain message', () => {
@@ -14,15 +14,15 @@ describe('readEml', () => {
       'Content-Type: text/plain; charset="utf-8"',
       '',
       'Hello world',
-    ]);
-    const res: any = readEml(eml);
-    expect(res.text).toBe('Hello world\r\n');
-    expect(res.subject).toBe('Simple');
-    expect((res.from.email || res.from)).toContain('test@example.com');
-  });
+    ])
+    const res: any = readEml(eml)
+    expect(res.text).toBe('Hello world\r\n')
+    expect(res.subject).toBe('Simple')
+    expect((res.from.email || res.from)).toContain('test@example.com')
+  })
 
   it('parses multipart mixed with text and html', () => {
-    const boundary = 'BOUND123';
+    const boundary = 'BOUND123'
     const eml = crlf([
       'Subject: Multi',
       'From: <a@example.com>',
@@ -41,15 +41,15 @@ describe('readEml', () => {
       base64Encode('<b>Hi</b>'),
       `--${boundary}--`,
       '',
-    ]);
-    const res: any = readEml(eml);
-    expect(res.text).toBe('Line\nSecond');
-    expect(res.html).toContain('<b>Hi</b>');
-  });
+    ])
+    const res: any = readEml(eml)
+    expect(res.text).toBe('Line\nSecond')
+    expect(res.html).toContain('<b>Hi</b>')
+  })
 
   it('extracts base64 attachment', () => {
-    const boundary = 'ATTBOUND';
-    const data = 'Attachment content';
+    const boundary = 'ATTBOUND'
+    const data = 'Attachment content'
     const eml = crlf([
       'Subject: Attachment',
       'From: <a@example.com>',
@@ -68,23 +68,23 @@ describe('readEml', () => {
       base64Encode(data),
       `--${boundary}--`,
       '',
-    ]);
-    const res: any = readEml(eml);
-    expect(res.attachments).toHaveLength(1);
-    const att = res.attachments[0];
-    expect(att.name || att.filename).toBe('note.txt');
-    expect(att.data64).toBe('QXR0YWNobWVudCBjb250ZW50');
-  });
+    ])
+    const res: any = readEml(eml)
+    expect(res.attachments).toHaveLength(1)
+    const att = res.attachments[0]
+    expect(att.name || att.filename).toBe('note.txt')
+    expect(att.data64).toBe('QXR0YWNobWVudCBjb250ZW50')
+  })
 
   it('reads from pre-parsed object path (text/plain)', () => {
-    const obj = { headers: { 'Content-Type': 'text/plain; charset="utf-8"' }, body: 'Body Text' } as any;
-    const res: any = readEml(obj);
-    expect(res.text).toBe('Body Text');
-  });
+    const obj = { headers: { 'Content-Type': 'text/plain; charset="utf-8"' }, body: 'Body Text' } as any
+    const res: any = readEml(obj)
+    expect(res.text).toBe('Body Text')
+  })
 
   it('returns error when object missing headers', () => {
-    const bad: any = { body: 'No headers' };
-    const res = readEml(bad as any);
-    expect(typeof res === 'string' || res instanceof Error).toBe(true);
-  });
-});
+    const bad: any = { body: 'No headers' }
+    const res = readEml(bad as any)
+    expect(typeof res === 'string' || res instanceof Error).toBe(true)
+  })
+})

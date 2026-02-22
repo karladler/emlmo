@@ -1,0 +1,38 @@
+{
+  "date": "2023-04-22T22:23:08.000Z",
+  "subject": "A subject with spaces",
+  "from": [
+    {
+      "name": "Nobody there",
+      "email": "dummyEmail@emailClient.com"
+    }
+  ],
+  "to": [
+    {
+      "name": "Nobody here",
+      "email": "dummyEmail2@emailClient.com"
+    }
+  ],
+  "headers": {
+    "date": "Sun, 23 Apr 2023 00:23:08 +0200",
+    "message-id": "\r\n<CAGFso0R6WbMomMx6mFFJzt_wiL8wRm3sN0YQwXz12Ugbt72XSw@mail.gmail.com>",
+    "subject": "A subject with spaces",
+    "from": "=?UTF-8?Q?Nobody_there?= <dummyEmail@emailClient.com>",
+    "to": "=?UTF-8?Q?Nobody_here?= <dummyEmail2@emailClient.com>",
+    "content-type": "multipart/alternative; boundary=\"=_ohFeHkpibN03-stIVrreU01\""
+  },
+  "attachments": [
+    {
+      "name": "",
+      "contentType": "text/plain; charset=utf-8; format=flowed; DelSp=Yes",
+      "inline": true,
+      "data64": ""
+    },
+    {
+      "name": "",
+      "contentType": "text/html; charset=utf-8",
+      "inline": true,
+      "data64": ""
+    }
+  ]
+}

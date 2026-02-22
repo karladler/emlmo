@@ -1,0 +1,43 @@
+{
+  "date": "2025-08-25T10:10:00.000Z",
+  "subject": "Mixed Related Inline",
+  "from": [
+    {
+      "name": "Inline Tester",
+      "email": "inline@example.com"
+    }
+  ],
+  "to": [
+    {
+      "name": "Recipient",
+      "email": "rcpt@example.com"
+    }
+  ],
+  "headers": {
+    "mime-version": "1.0",
+    "date": "Mon, 25 Aug 2025 10:10:00 +0000",
+    "from": "Inline Tester <inline@example.com>",
+    "to": "Recipient <rcpt@example.com>",
+    "subject": "Mixed Related Inline",
+    "content-type": "multipart/mixed; boundary=\"MIXEDBOUND\"",
+    "message-id": "<mixed-related-inline@example.com>"
+  },
+  "multipartAlternative": {
+    "Content-Type": "multipart/related; boundary=\"RELBOUND\""
+  },
+  "attachments": [
+    {
+      "name": "img.png",
+      "contentType": "image/png; name=\"img.png\"",
+      "inline": true,
+      "data64": "iVBORw0KGgo=",
+      "id": "<img123>"
+    },
+    {
+      "name": "note.txt",
+      "contentType": "text/plain; charset=\"UTF-8\"; name=\"note.txt\"",
+      "inline": false,
+      "data64": "Tm90ZSBhdHRhY2htZW50Lg=="
+    }
+  ]
+}

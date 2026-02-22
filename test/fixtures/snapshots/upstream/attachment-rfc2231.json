@@ -1,0 +1,38 @@
+{
+  "date": "2025-08-25T10:20:00.000Z",
+  "subject": "RFC2231 Segmented Filename",
+  "from": [
+    {
+      "name": "Segmented",
+      "email": "seg@example.com"
+    }
+  ],
+  "to": [
+    {
+      "name": "Receiver",
+      "email": "rx@example.com"
+    }
+  ],
+  "headers": {
+    "mime-version": "1.0",
+    "date": "Mon, 25 Aug 2025 10:20:00 +0000",
+    "from": "Segmented <seg@example.com>",
+    "to": "Receiver <rx@example.com>",
+    "subject": "RFC2231 Segmented Filename",
+    "content-type": "multipart/mixed; boundary=\"SEGBOUND\"",
+    "message-id": "<attachment-rfc2231@example.com>"
+  },
+  "text": "Segmented filename example",
+  "textheaders": {
+    "content-type": "text/plain; charset=\"UTF-8\"",
+    "content-transfer-encoding": ""
+  },
+  "attachments": [
+    {
+      "name": "long_file.txt",
+      "contentType": "application/octet-stream; name*0*=\"long_\"; name*1*=\"file.txt\"",
+      "inline": false,
+      "data64": "QQo="
+    }
+  ]
+}

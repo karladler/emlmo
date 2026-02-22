@@ -1,0 +1,54 @@
+{
+  "date": "2022-09-29T13:08:35.000Z",
+  "subject": "Attachment Email",
+  "from": [
+    {
+      "name": "Pádraig Weeks",
+      "email": "dummyEmail2@gmail.com"
+    }
+  ],
+  "to": [
+    {
+      "name": "Pádraig Weeks",
+      "email": "dummyEmail2@gmail.com"
+    }
+  ],
+  "headers": {
+    "mime-version": "1.0",
+    "date": "Thu, 29 Sep 2022 14:08:35 +0100",
+    "message-id": "<CAGFso0TE59Bwit7odiFh6EFTPp3Amu3XnGqcys9cAkELoF2DXA@mail.gmail.com>",
+    "subject": "Attachment Email",
+    "from": "=?UTF-8?Q?P=C3=A1draig_Weeks?= <dummyEmail2@gmail.com>",
+    "to": "=?UTF-8?Q?P=C3=A1draig_Weeks?= <dummyEmail2@gmail.com>",
+    "content-type": "multipart/mixed; boundary=\"000000000000384e1705e9d0930b\""
+  },
+  "text": "Little body",
+  "html": "<div dir=\"ltr\">Little body</div>",
+  "multipartAlternative": {
+    "Content-Type": "multipart/alternative; boundary=\"000000000000384e1505e9d09309\""
+  },
+  "textheaders": {
+    "content-type": "text/plain; charset=\"UTF-8\"",
+    "content-transfer-encoding": ""
+  },
+  "htmlheaders": {
+    "content-type": "text/html; charset=\"UTF-8\"",
+    "content-transfer-encoding": ""
+  },
+  "attachments": [
+    {
+      "name": "Smalltextfile.txt",
+      "contentType": "text/plain; charset=\"UTF-8\"; name=\"Small text file.txt\"",
+      "inline": false,
+      "data64": "77u/U21hbGwgdGV4dCBmaWxlCg==",
+      "id": "<f_l8n2o5wn1>"
+    },
+    {
+      "name": "Smalltextfile2.txt",
+      "contentType": "text/plain; charset=\"UTF-8\"; name=\"Small text file2.txt\"",
+      "inline": false,
+      "data64": "77u/U21hbGwgdGV4dCBmaWxlCg==",
+      "id": "<f_l8n2o5w30>"
+    }
+  ]
+}

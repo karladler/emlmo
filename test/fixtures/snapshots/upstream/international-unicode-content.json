@@ -1,0 +1,40 @@
+{
+  "date": "2024-01-25T10:30:45.000Z",
+  "subject": "🌏 Reunión ínternacional - 国障大会 (日本)",
+  "from": [
+    {
+      "name": "María García",
+      "email": "maria.garcia@internacional.es"
+    }
+  ],
+  "to": [
+    {
+      "name": "Jürgen Müller",
+      "email": "jurgen.muller@deutschland.de"
+    },
+    {
+      "name": "山田一郎",
+      "email": "yamada.ichiro@nihon.jp"
+    }
+  ],
+  "headers": {
+    "return-path": "<maria.garcia@internacional.es>",
+    "from": "=?UTF-8?B?TWFyw61hIEdhcmPDrWE=?= <maria.garcia@internacional.es>",
+    "to": "=?UTF-8?B?SsO8cmdlbiBNw7xsbGVy?= <jurgen.muller@deutschland.de>, =?UTF-8?B?5bGx55Sw5LiA6YOO?= <yamada.ichiro@nihon.jp>",
+    "date": "Thu, 25 Jan 2024 11:30:45 +0100",
+    "subject": "=?UTF-8?B?8J+MjyBSZXVuacOzbiDDrW50ZXJuYWNpb25hbCAtIOWbvemanOWkp+S8miAo5pel5pysKQ==?=",
+    "message-id": "<international-20240125@internacional.es>",
+    "mime-version": "1.0",
+    "content-type": "multipart/alternative; boundary=\"intl-boundary-54321\""
+  },
+  "text": "�Hola colegas! Espero que est�n bien. Les escribo para confirmar nuestra reuni�n internacional del pr�ximo viernes. Agenda: 1. Revisi�n del progreso en Espa�a <�<� 2. Actualizaci�n desde Alemania <�<� 3. Informe desde Jap�n <�<� Informaci�n de la reuni�n: - Fecha: Viernes, 26 de enero de 2024 - Hora: 15:00 CET / 23:00 JST / 9:00 EST - Plataforma: Microsoft Teams Temas importantes a discutir: \" Localizaci�n de productos para mercados asi�ticos \" Estrategias de marketing culturalmente sensibles \" Coordinaci�n de zonas horarias para el equipo global Por favor, confirmen su asistencia. Saludos cordiales, Mar�a Garc�a Directora de Operaciones Internacionales Tel: +34 91 234 5678 =� maria.garcia@internacional.es P.S.: �Preparen caf�, t� o sake seg�n su preferencia! \u0015<u<v",
+  "html": "<html><head><meta charset=\"utf-8\"><style> body { font-family: Arial, sans-serif; color: #333; } .header { background: linear-gradient(90deg, #ff7070, #4080ff, #40ff80); padding: 20px; color: white; text-align: center; } .content { padding: 20px; } .country { font-size: 1.2em; margin: 10px 0; } .meeting-info { background: #f5f5f5; padding: 15px; border: 1px solid #ddd; border-radius: 5px; margin: 10px 0; } </style></head><body><div class=\"header\"><h1>🌏 Reunión ínternacional</h1></div><div class=\"content\"><p>¡Hola colegas!</p><p>Espero que estén bien. Les escribo para confirmar nuestra reunión internacional del próximo viernes.</p><h2>Agenda:</h2><div class=\"country\">1. Revisión del progreso en España 🇩🇦</div><div class=\"country\">2. Actualización desde Alemania 🇽🇪</div><div class=\"country\">3. Informe desde Japón 🇯🇵</div><div class=\"meeting-info\"><h3>Información de la reunión</h3><p><strong>Fecha:</strong> Viernes, 26 de enero de 2024</p><p><strong>Hora:</strong> 15:00 CET / 23:00 JST / 9:00 EST</p><p><strong>Plataforma:'</strong> Microsoft Teams</p></div><h3>Temas importantes a discutir:</h3><ul><li>Localización de productos para mercados asiáticos</li><li>Estrategias de marketing culturalmente sensibles</li><li>Coordinación de zonas horarias para el equipo global</li></ul><p>Por favor, confirmen su asistencia.</p><p>Saludos cordiales,<br/> María García<br/> Directora de Operaciones Internacionales<br/> Tel: +34 91 234 5678<br/> 📧 maria.garcia@internacional.es</p><p><em>P.S.: ¡Preparen café, té o sake según su preferencia! ―?️ 🍥🎶</em></p></div></body></html>",
+  "textheaders": {
+    "content-type": "text/plain; charset=\"utf-8\"",
+    "content-transfer-encoding": "quoted-printable"
+  },
+  "htmlheaders": {
+    "content-type": "text/html; charset=\"utf-8\"",
+    "content-transfer-encoding": "base64"
+  }
+}

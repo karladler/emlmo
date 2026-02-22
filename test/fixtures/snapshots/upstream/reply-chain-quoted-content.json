@@ -1,0 +1,45 @@
+{
+  "date": "2024-01-22T15:45:30.000Z",
+  "subject": "Re: Project Timeline Discussion",
+  "from": [
+    {
+      "name": "Bob Manager",
+      "email": "bob.manager@company.com"
+    }
+  ],
+  "to": [
+    {
+      "name": "Alice Developer",
+      "email": "alice.developer@company.com"
+    }
+  ],
+  "headers": {
+    "return-path": "<bob.manager@company.com>",
+    "from": "Bob Manager <bob.manager@company.com>",
+    "to": "Alice Developer <alice.developer@company.com>",
+    "cc": "Project Team <team@company.com>",
+    "date": "Mon, 22 Jan 2024 16:45:30 +0100",
+    "subject": "Re: Project Timeline Discussion",
+    "message-id": "<20240122164530.ABC123@company.com>",
+    "in-reply-to": "<20240122143015.XYZ789@company.com>",
+    "references": "<20240122143015.XYZ789@company.com>",
+    "mime-version": "1.0",
+    "content-type": "multipart/alternative; boundary=\"reply-boundary-98765\""
+  },
+  "text": "Hi Alice, Thanks for the detailed breakdown. I agree with the proposed timeline. A few additional points: - Let's schedule weekly check-ins every Friday - We should consider adding buffer time for testing - The client presentation is confirmed for March 15th Let me know if you need any additional resources. Best, Bob On Mon, Jan 22, 2024 at 2:30 PM Alice Developer <alice.developer@company.com> wrote: > Hi Bob, > > I've reviewed the project requirements and here's my proposed timeline: > > Phase 1: Research and Planning (Jan 23 - Feb 2) > - Requirements analysis > - Technical architecture design > - Resource allocation > > Phase 2: Development (Feb 5 - Feb 23) > - Core functionality implementation > - API development > - Frontend development > > Phase 3: Testing and Deployment (Feb 26 - Mar 8) > - Unit and integration testing > - User acceptance testing > - Production deployment > > The total timeline is approximately 7 weeks. Let me know your thoughts. > > Best regards, > Alice",
+  "html": "<html><body><p>Hi Alice,</p><p>Thanks for the detailed breakdown. I agree with the proposed timeline.</p><p>A few additional points:</p><ul><li>Let's schedule weekly check-ins every Friday</li><li>We should consider adding buffer time for testing</li><li>The client presentation is confirmed for March 15th</li></ul><p>Let me know if you need any additional resources.</p><p>Best,<br/>Bob</p><div style=\"border-left: 2px solid #ccc; padding-left: 10px; margin-top: 20px;\"><p><strong>On Mon, Jan 22, 2024 at 2:30 PM Alice Developer &lt;alice.developer@company.com&gt; wrote:</strong></p><blockquote><p>Hi Bob,</p><p>I've reviewed the project requirements and here's my proposed timeline:</p><p><strong>Phase 1: Research and Planning (Jan 23 - Feb 2)</strong></p><ul><li>Requirements analysis</li><li>Technical architecture design</li><li>Resource allocation</li></ul><p><strong>Phase 2: Development (Feb 5 - Feb 23)</strong></p><ul><li>Core functionality implementation</li><li>API development</li><li>Frontend development</li></ul><p><strong>Phase 3: Testing and Deployment (Feb 26 - Mar 8)</strong></p><ul><li>Unit and integration testing</li><li>User acceptance testing</li><li>Production deployment</li></ul><p>The total timeline is approximately 7 weeks. Let me know your thoughts.</p><p>Best regards,<br/>Alice</p></blockquote></div></body></html>",
+  "cc": [
+    {
+      "name": "Project Team",
+      "email": "team@company.com"
+    }
+  ],
+  "textheaders": {
+    "content-type": "text/plain; charset=\"utf-8\"",
+    "content-transfer-encoding": "quoted-printable"
+  },
+  "htmlheaders": {
+    "content-type": "text/html; charset=\"utf-8\"",
+    "content-transfer-encoding": "quoted-printable"
+  }
+}

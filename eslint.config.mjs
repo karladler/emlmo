@@ -1,7 +1,7 @@
-import eslint from '@eslint/js';
-import { defineConfig } from 'eslint/config';
-import stylistic from '@stylistic/eslint-plugin';
-import tseslint from 'typescript-eslint';
+import eslint from '@eslint/js'
+import { defineConfig } from 'eslint/config'
+import stylistic from '@stylistic/eslint-plugin'
+import tseslint from 'typescript-eslint'
 
 export default defineConfig(
   eslint.configs.recommended,
@@ -20,9 +20,9 @@ export default defineConfig(
       'prefer-template': 'error',
       '@stylistic/indent': ['error', 2],
       '@stylistic/quotes': ['error', 'single'],
-      '@stylistic/semi': ['error', 'always'],
+      '@stylistic/semi': ['error', 'never'],
       '@stylistic/comma-dangle': ['error', 'always-multiline'],
-      '@stylistic/max-len': ['error', { code: 140, ignoreUrls: true, ignoreStrings: true }],
+      '@stylistic/max-len': ['error', { code: 120, ignoreUrls: true, ignoreStrings: true }],
       'padding-line-between-statements': [
         'error',
         { blankLine: 'always', prev: '*', next: 'return' },
@@ -36,4 +36,4 @@ export default defineConfig(
       '@typescript-eslint/no-explicit-any': 'off',
     },
   },
-);
+)

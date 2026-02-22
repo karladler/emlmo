@@ -32,7 +32,8 @@
     "prepublishOnly": "npm run lint && npm run build:publish && npm run test",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "build-upstream-snapshots": "BUILD_UPSTREAM_SNAPSHOTS=1 vitest run test/build-upstream-snapshots.test.ts"
   },
   "files": [
     "dist",
@@ -59,6 +60,7 @@
   },
   "homepage": "https://github.com/karladler/emlmo#readme",
   "devDependencies": {
+    "eml-parse-js": "^1.1.15",
     "@eslint/js": "^9.36.0",
     "@stylistic/eslint-plugin": "^5.9.0",
     "@types/node": "^25.3.0",

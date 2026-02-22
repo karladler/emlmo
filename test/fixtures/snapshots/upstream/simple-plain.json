@@ -1,0 +1,29 @@
+{
+  "date": "2025-08-25T10:00:00.000Z",
+  "subject": "Simple Plain",
+  "from": [
+    {
+      "name": "Simple Sender",
+      "email": "simple@example.com"
+    }
+  ],
+  "to": [
+    {
+      "name": "Simple Receiver",
+      "email": "receiver@example.com"
+    }
+  ],
+  "headers": {
+    "date": "Mon, 25 Aug 2025 10:00:00 +0000",
+    "from": "Simple Sender <simple@example.com>",
+    "to": "Simple Receiver <receiver@example.com>",
+    "subject": "Simple Plain",
+    "message-id": "<simple-plain@example.com>",
+    "content-type": "text/plain; charset=\"utf-8\""
+  },
+  "text": "This is a simple plain text body. With a second line.",
+  "textheaders": {
+    "content-type": "text/plain; charset=\"utf-8\"",
+    "content-transfer-encoding": ""
+  }
+}

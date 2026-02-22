@@ -1,0 +1,43 @@
+{
+  "date": "2024-01-29T10:15:00.000Z",
+  "subject": "Meeting Invitation: Sprint Planning - Feb 1, 2024",
+  "from": [
+    {
+      "name": "Meeting Organizer",
+      "email": "meeting.organizer@company.com"
+    }
+  ],
+  "to": [
+    {
+      "name": "",
+      "email": "attendee1@company.com"
+    },
+    {
+      "name": "",
+      "email": "attendee2@company.com"
+    }
+  ],
+  "headers": {
+    "return-path": "<calendar@company.com>",
+    "from": "Meeting Organizer <meeting.organizer@company.com>",
+    "to": "attendee1@company.com, attendee2@company.com",
+    "date": "Mon, 29 Jan 2024 10:15:00 +0000",
+    "subject": "Meeting Invitation: Sprint Planning - Feb 1, 2024",
+    "message-id": "<calendar-invite-20240129@company.com>",
+    "mime-version": "1.0",
+    "content-type": "multipart/mixed; boundary=\"calendar-boundary-11111\""
+  },
+  "text": "You have been invited to attend a meeting: Event: Sprint Planning Date: Thursday, February 1, 2024 Time: 10:00 AM - 11:30 AM (UTC) Location: Conference Room A / Microsoft Teams Agenda: - Review previous sprint outcomes - Plan upcoming sprint backlog - Discuss team capacity and blockers - Set sprint goals and priorities Please confirm your attendance by replying to this email. Meeting Organizer Project Manager meeting.organizer@company.com",
+  "textheaders": {
+    "content-type": "text/plain; charset=\"utf-8\"",
+    "content-transfer-encoding": ""
+  },
+  "attachments": [
+    {
+      "name": "meeting.ics",
+      "contentType": "text/calendar; method=REQUEST; name=\"meeting.ics\"",
+      "inline": false,
+      "data64": ""
+    }
+  ]
+}

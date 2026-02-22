@@ -1,0 +1,47 @@
+{
+  "date": "2024-01-15T09:30:12.000Z",
+  "subject": "Q4 Financial Report - Please Review",
+  "from": [
+    {
+      "name": "Sarah Johnson",
+      "email": "sarah.johnson@corporatetech.com"
+    }
+  ],
+  "to": [
+    {
+      "name": "John Doe",
+      "email": "john.doe@company.com"
+    }
+  ],
+  "headers": {
+    "return-path": "<sarah.johnson@corporatetech.com>",
+    "received": "from mail.corporatetech.com (mail.corporatetech.com [192.168.1.100])\r\nby mailserver.company.com (Postfix) with ESMTP id A1B2C3D4E5F6\r\nfor <john.doe@company.com>; Mon, 15 Jan 2024 09:30:15 +0000 (UTC)",
+    "from": "Sarah Johnson <sarah.johnson@corporatetech.com>",
+    "to": "John Doe <john.doe@company.com>",
+    "cc": "Mary Smith <mary.smith@company.com>",
+    "date": "Mon, 15 Jan 2024 09:30:12 +0000",
+    "subject": "Q4 Financial Report - Please Review",
+    "message-id": "<20240115093012.A1B2C3D4E5F6@corporatetech.com>",
+    "mime-version": "1.0",
+    "content-type": "multipart/mixed; boundary=\"----=_NextPart_000_0001_01DA3F2E.12345678\""
+  },
+  "text": "Hi John, Please find attached the Q4 financial report for your review. The key highlights are: * Revenue increased by 15% compared to Q3 * Operating costs reduced by 8% * Net profit margin improved to 12.5% Please let me know if you have any questions or need additional clarification. Best regards, Sarah Johnson Senior Financial Analyst Corporate Tech Solutions sarah.johnson@corporatetech.com +1 (555) 123-4567",
+  "cc": [
+    {
+      "name": "Mary Smith",
+      "email": "mary.smith@company.com"
+    }
+  ],
+  "textheaders": {
+    "content-type": "text/plain; charset=\"utf-8\"",
+    "content-transfer-encoding": "quoted-printable"
+  },
+  "attachments": [
+    {
+      "name": "Q4_Financial_Report.pdf",
+      "contentType": "application/pdf; name=\"Q4_Financial_Report.pdf\"",
+      "inline": false,
+      "data64": "JVBERi0xLjQKJcOkw7zDtsO8DQoxIDAgb2JqCjw8Ci9UeXBlIC9DYXRhbG9nCi9QYWdlcyAyIDAgUgo+PgplbmRvYmoKMiAwIG9iago8PAovVHlwZSAvUGFnZXMKL0tpZHMgWzMgMCBSXQovQ291bnQgMQo+PgplbmRvYmoKMyAwIG9iago8PAovVHlwZSAvUGFnZQovUGFyZW50IDIgMCBSCi9NZWRpYUJveCBbMCAwIDYxMiA3OTJdCi9Db250ZW50cyA0IDAgUgo+PgplbmRvYmoKNCAwIG9iago8PAovTGVuZ3RoIDEwNgo+PgpzdHJlYW0KQlQKL0YxIDEyIFRmCjcyIDcyMCBUZAooUTQgRmluYW5jaWFsIFJlcG9ydCkgVGoKNzIgNzAwIFRkCihSZXZlbnVlOiAkMi41TSkgVGoKNzIgNjgwIFRkCihPcGVyYXRpbmcgQ29zdHM6ICQyLjJNKSBUago3MiA2NjAgVGQKKE5ldCBQcm9maXQ6ICQzMDBLKSBUagpFVAplbmRzdHJlYW0KZW5kb2JqCnhyZWYKMCA1CjAwMDAwMDAwMDAgNjU1MzUgZiAKMDAwMDAwMDAwOSAwMDAwMCBuIAowMDAwMDAwMDU4IDAwMDAwIG4gCjAwMDAwMDAxMTUgMDAwMDAgbiAKMDAwMDAwMDIwNSAwMDAwMCBuIAp0cmFpbGVyCjw8Ci9TaXplIDUKL1Jvb3QgMSAwIFIKPj4Kc3RhcnR4cmVmCjM2MQolJUVPRgo="
+    }
+  ]
+}

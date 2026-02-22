@@ -1,0 +1,35 @@
+{
+  "date": "2022-09-29T11:22:20.000Z",
+  "subject": "Off-The-Beaten-Path Trails You've Never Heard Of!  🌏",
+  "from": [
+    {
+      "name": "Nobody there",
+      "email": "dummyEmail@emailClient.com"
+    }
+  ],
+  "to": [
+    {
+      "name": "Nobody here",
+      "email": "dummyEmail2@emailClient.com"
+    }
+  ],
+  "headers": {
+    "mime-version": "1.0",
+    "date": "Thu, 29 Sep 2022 12:22:20 +0100",
+    "message-id": "<CAGFso0R6WbMomMx6mFFJzt_wiL8wRm3sN0YQwXz12Ugbt72XSw@mail.gmail.com>",
+    "subject": "=?UTF-8?q?Off-The-Beaten-Path_Trails_You've_Never_Heard_Of!__=F0=9F=8C=8F?=",
+    "from": "=?UTF-8?Q?Nobody_there?= <dummyEmail@emailClient.com>",
+    "to": "=?UTF-8?Q?Nobody_here?= <dummyEmail2@emailClient.com>",
+    "content-type": "multipart/alternative; boundary=\"0000000000003a852505e9cf17b2\""
+  },
+  "text": "A small body with _underscores.",
+  "html": "<div dir=\"ltr\"> A small body with _underscores.</div>",
+  "textheaders": {
+    "content-type": "text/plain; charset=\"UTF-8\"",
+    "content-transfer-encoding": ""
+  },
+  "htmlheaders": {
+    "content-type": "text/html; charset=\"UTF-8\"",
+    "content-transfer-encoding": "quoted-printable"
+  }
+}

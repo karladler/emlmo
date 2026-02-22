@@ -1,0 +1,46 @@
+{
+  "date": "2025-08-25T10:15:00.000Z",
+  "subject": "Triple Nesting",
+  "from": [
+    {
+      "name": "Triple Nest",
+      "email": "triple@example.com"
+    }
+  ],
+  "to": [
+    {
+      "name": "Deep Receiver",
+      "email": "deep@example.com"
+    }
+  ],
+  "headers": {
+    "mime-version": "1.0",
+    "date": "Mon, 25 Aug 2025 10:15:00 +0000",
+    "from": "Triple Nest <triple@example.com>",
+    "to": "Deep Receiver <deep@example.com>",
+    "subject": "Triple Nesting",
+    "message-id": "<nested-triple@example.com>",
+    "content-type": "multipart/mixed; boundary=\"OUTER\""
+  },
+  "text": "Deep plain",
+  "html": "<div dir=\"ltr\">Deep html</div>",
+  "multipartAlternative": {
+    "Content-Type": "multipart/related; boundary=\"REL\""
+  },
+  "textheaders": {
+    "content-type": "text/plain; charset=\"utf-8\"",
+    "content-transfer-encoding": "7bit"
+  },
+  "htmlheaders": {
+    "content-type": "text/html; charset=\"utf-8\"",
+    "content-transfer-encoding": "base64"
+  },
+  "attachments": [
+    {
+      "name": "file.bin",
+      "contentType": "application/octet-stream; name=\"file.bin\"",
+      "inline": false,
+      "data64": "QUJD"
+    }
+  ]
+}

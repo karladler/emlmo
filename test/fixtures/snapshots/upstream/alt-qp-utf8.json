@@ -1,0 +1,35 @@
+{
+  "date": "2025-08-25T10:05:00.000Z",
+  "subject": "Alternative QP and Base64",
+  "from": [
+    {
+      "name": "Alt User",
+      "email": "alt@example.com"
+    }
+  ],
+  "to": [
+    {
+      "name": "Target",
+      "email": "target@example.com"
+    }
+  ],
+  "headers": {
+    "mime-version": "1.0",
+    "date": "Mon, 25 Aug 2025 10:05:00 +0000",
+    "from": "=?UTF-8?Q?Alt_User?= <alt@example.com>",
+    "to": "Target <target@example.com>",
+    "subject": "=?UTF-8?Q?Alternative_QP_and_Base64?=",
+    "content-type": "multipart/alternative; boundary=\"ALTBOUND123\"",
+    "message-id": "<alt-qp-utf8@example.com>"
+  },
+  "text": "Line one with _underscore_.",
+  "html": "<div dir=\"ltr\">Line one with <em>underline</em></div>",
+  "textheaders": {
+    "content-type": "text/plain; charset=\"UTF-8\"",
+    "content-transfer-encoding": "quoted-printable"
+  },
+  "htmlheaders": {
+    "content-type": "text/html; charset=\"UTF-8\"",
+    "content-transfer-encoding": ""
+  }
+}

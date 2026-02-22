@@ -1,0 +1,38 @@
+{
+  "date": "2025-08-25T10:25:00.000Z",
+  "subject": "Inline Without Disposition",
+  "from": [
+    {
+      "name": "NoDisp",
+      "email": "nodisp@example.com"
+    }
+  ],
+  "to": [
+    {
+      "name": "R",
+      "email": "r@example.com"
+    }
+  ],
+  "headers": {
+    "mime-version": "1.0",
+    "date": "Mon, 25 Aug 2025 10:25:00 +0000",
+    "from": "NoDisp <nodisp@example.com>",
+    "to": "R <r@example.com>",
+    "subject": "Inline Without Disposition",
+    "content-type": "multipart/mixed; boundary=\"NODISPBOUND\"",
+    "message-id": "<attachment-inline-no-disposition@example.com>"
+  },
+  "html": "<div dir=\"ltr\"><b>Body</b></div>",
+  "htmlheaders": {
+    "content-type": "text/html; charset=\"UTF-8\"",
+    "content-transfer-encoding": ""
+  },
+  "attachments": [
+    {
+      "name": "photo.jpg",
+      "contentType": "image/jpeg; name=\"photo.jpg\"",
+      "inline": false,
+      "data64": "aGVsbG8="
+    }
+  ]
+}
