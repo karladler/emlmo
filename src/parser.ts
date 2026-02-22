@@ -297,12 +297,15 @@ function read(
 		const charset = getCharsetName(getCharset(contentType as string) || defaultCharset);
 		let encoding = headers['Content-Transfer-Encoding'] || headers['Content-transfer-encoding'];
 		if (typeof encoding === 'string') encoding = encoding.toLowerCase();
+		let rawBase64: string | undefined;
 
 		if (encoding === 'base64') {
+			const raw = (content as string).replace(/\r?\n/g, '');
+			rawBase64 = raw;
 			if (contentType && contentType.indexOf('gbk') >= 0) {
-				content = encode(GB2312UTF8.GB2312ToUTF8((content as string).replace(/\r?\n/g, '')));
+				content = encode(GB2312UTF8.GB2312ToUTF8(raw));
 			} else {
-				content = encode((content as string).replace(/\r?\n/g, ''));
+				content = base64ToUint8Array(raw);
 			}
 		} else if (encoding === 'quoted-printable') {
 			content = unquotePrintable(content as string, charset);
@@ -316,12 +319,7 @@ function read(
 				.replace(/&quot;/g, '"')
 				.replace(/\r\n/g, '\n');
 			try {
-				if (encoding === 'base64') {
-					const compact = htmlContent.replace(/\s+/g, '');
-					if (/^[A-Za-z0-9+/=]+$/.test(compact) && compact.length % 4 === 0) {
-						htmlContent = base64Decode(compact);
-					}
-				} else {
+				if (encoding !== 'base64') {
 					const compact = htmlContent.replace(/\s+/g, '');
 					const base64Like = /^[A-Za-z0-9+/]+={0,2}$/.test(compact) && compact.length % 4 === 0 && compact.length >= 16;
 					if (base64Like) {
@@ -341,7 +339,6 @@ function read(
 			result.htmlheaders = { 'Content-Type': contentType, 'Content-Transfer-Encoding': encoding || '' };
 		} else if (!contentDisposition && contentType && contentType.indexOf('text/plain') >= 0) {
 			if (typeof content !== 'string') content = decode(content as Uint8Array, charset);
-			if (encoding === 'base64') content = base64Decode(content);
 			if (result.text) result.text += content;
 			else result.text = content;
 			result.textheaders = { 'Content-Type': contentType, 'Content-Transfer-Encoding': encoding || '' };
@@ -369,7 +366,7 @@ function read(
 			const cd = headers['Content-Disposition'];
 			if (cd) attachment.inline = /^\s*inline/g.test(cd);
 			attachment.data = content as Uint8Array;
-			attachment.data64 = decode(content as Uint8Array, charset);
+			attachment.data64 = rawBase64 ?? decode(content as Uint8Array, charset);
 			result.attachments.push(attachment);
 		}
 	}
