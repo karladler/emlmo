@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'fs';
 import { join } from 'path';
-import { readEml, buildEml } from '../src/index';
+import { readEml } from '../src/index';
 import type { ReadedEmlJson } from '../src/interface';
 
 function crlf(lines: string[]) { return `${lines.join('\r\n')  }\r\n`; }
@@ -10,7 +10,9 @@ function readEmlForTest(filepath: string, encoding: BufferEncoding = 'utf-8'): R
   const src = join(__dirname, filepath);
   const eml = readFileSync(src, encoding);
   const result = readEml(eml);
+
   if (typeof result === 'string' || result instanceof Error) throw new Error(String(result));
+
   return result;
 }
 
@@ -250,28 +252,3 @@ describe('verbose logging paths', () => {
   });
 });
 
-describe('buildEml error handling', () => {
-  it('should handle data without headers gracefully', () => {
-    const invalidData = {
-      subject: 'Test',
-      from: 'test@example.com',
-    };
-
-    const result = buildEml(invalidData as any);
-    expect(result).toBeInstanceOf(Error);
-    expect((result as Error).message).toContain('headers');
-  });
-
-  it('should handle string input for build function', () => {
-    const emlString = crlf([
-      'Subject: Test',
-      'From: test@example.com',
-      'Content-Type: text/plain',
-      '',
-      'Test content',
-    ]);
-
-    const result = buildEml(emlString);
-    expect(result).toBeDefined();
-  });
-});

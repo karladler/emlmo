@@ -9,8 +9,7 @@ export default defineConfig({
     lib: {
       entry: {
         index: 'src/index.ts',
-        parser: 'src/parser.ts',
-        builder: 'src/builder.ts',
+        parser: 'src/parser/index.ts',
       },
       name: 'EmlParseJs',
       formats: ['cjs', 'es'],

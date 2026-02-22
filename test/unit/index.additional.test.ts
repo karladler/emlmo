@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { buildEml, readEml, parseEml, createBoundary } from '../../src/index';
-import { base64Encode } from '../../src/base64';
+import { readEml, parseEml } from '../../src/index';
+import { base64Encode } from '../../src/lib/base64';
 import { GB2312UTF8 } from '../../src/utils';
 
 function crlf(lines: string[]) { return `${lines.join('\r\n')  }\r\n`; }
@@ -23,30 +23,6 @@ describe('index.ts additional coverage', () => {
       ]);
       const res: any = readEml(eml);
       expect(res.html).toContain('<h1>Hello</h1>');
-    });
-  });
-
-  describe('build encode path with textheaders/html', () => {
-    it('uses provided textheaders when encode option set', () => {
-      const boundary = createBoundary();
-      const data: any = {
-        headers: {
-          'From': 'A <a@example.com>',
-          'To': 'b@example.com',
-          'Subject': 'EncodePath',
-          'Content-Type': `multipart/mixed; boundary="${boundary}"`,
-        },
-        text: 'TBody',
-        html: '<p>HBody</p>',
-        textheaders: {
-          'X-Custom': 'Value',
-        },
-      };
-      const eml = buildEml(data, { encode: true, headersOnly: false }) as string;
-      expect(eml.indexOf('X-Custom: Value')).toBeGreaterThan(-1);
-      const res: any = readEml(eml);
-      expect(res).toBeTypeOf('object');
-      expect(res.headers).toBeTruthy();
     });
   });
 

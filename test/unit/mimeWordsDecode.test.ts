@@ -1,5 +1,5 @@
 import { it, expect } from 'vitest';
-import { mimeWordsDecode } from '../../src/mimeWordsDecode';
+import { mimeWordsDecode } from '../../src/lib/mimeWordsDecode';
 
 it('should return an empty string for empty input', () => {
   expect(mimeWordsDecode('')).toBe('');

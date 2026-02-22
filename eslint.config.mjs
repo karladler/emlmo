@@ -23,6 +23,11 @@ export default defineConfig(
       '@stylistic/semi': ['error', 'always'],
       '@stylistic/comma-dangle': ['error', 'always-multiline'],
       '@stylistic/max-len': ['error', { code: 140, ignoreUrls: true, ignoreStrings: true }],
+      'padding-line-between-statements': [
+        'error',
+        { blankLine: 'always', prev: '*', next: 'return' },
+        { blankLine: 'always', prev: '*', next: 'if' },
+      ],
     },
   },
   {

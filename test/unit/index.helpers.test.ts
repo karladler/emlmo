@@ -1,29 +1,7 @@
 import { describe, it, expect } from 'vitest';
-import {
-  toEmailAddress,
-  getEmailAddress,
-  unquoteString,
-  unquotePrintable,
-} from '../../src/index';
+import { getEmailAddress, unquoteString, unquotePrintable } from '../../src/index';
 
 describe('index.ts helpers (Batch A)', () => {
-  describe('toEmailAddress', () => {
-    it('returns string input unchanged', () => {
-      expect(toEmailAddress('plain@example.com')).toBe('plain@example.com');
-    });
-    it('formats single object with name', () => {
-      expect(toEmailAddress({ name: 'User', email: 'user@example.com' })).toBe('"User" <user@example.com>');
-    });
-    it('formats array of addresses, skipping missing email gracefully', () => {
-      const out = toEmailAddress([
-        { name: 'Alpha', email: 'a@example.com' },
-        { name: 'NoEmail' } as any,
-        { email: 'b@example.com' } as any,
-      ]);
-      expect(out).toBe('"Alpha" <a@example.com>, "NoEmail" , <b@example.com>');
-    });
-  });
-
   describe('getEmailAddress', () => {
     it('parses single address to object', () => {
       const res = getEmailAddress('User <user@example.com>');
@@ -33,6 +11,7 @@ describe('index.ts helpers (Batch A)', () => {
     it('parses multiple addresses to array', () => {
       const res = getEmailAddress('A <a@example.com>, B <b@example.com>');
       expect(Array.isArray(res)).toBe(true);
+
       if (Array.isArray(res)) {
         expect(res.map(r => r.email)).toEqual(['a@example.com', 'b@example.com']);
       }

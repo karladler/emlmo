@@ -21,13 +21,6 @@
       "import": "./dist/parser.es.js",
       "require": "./dist/parser.cjs.js",
       "default": "./dist/parser.es.js"
-    },
-    "./builder": {
-      "types": "./dist/builder.d.ts",
-      "node": "./dist/builder.cjs.js",
-      "import": "./dist/builder.es.js",
-      "require": "./dist/builder.cjs.js",
-      "default": "./dist/builder.es.js"
     }
   },
   "scripts": {

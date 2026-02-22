@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { addressparser, Tokenizer } from '../../src/addressparser';
+import { addressparser, Tokenizer } from '../../src/lib/addressparser';
 
 describe('addressparser advanced', () => {
   it('parses address with comment fallback to display name', () => {

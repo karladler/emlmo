@@ -1,27 +1,10 @@
 import { describe, it, expect } from 'vitest';
-import {
-  createBoundary,
-  getCharset,
-  parseEml,
-  buildEml,
-  completeBoundary,
-  readEml,
-} from '../../src/index';
-import { base64Encode } from '../../src/base64';
+import { getCharset, parseEml, completeBoundary, readEml } from '../../src/index';
+import { base64Encode } from '../../src/lib/base64';
 
 function crlf(lines: string[]) { return `${lines.join('\r\n')}\r\n`; }
 
 describe('index.ts core helpers (Batch B)', () => {
-  describe('createBoundary', () => {
-    it('produces unique-ish values starting with ----=', () => {
-      const a = createBoundary();
-      const b = createBoundary();
-      expect(a).toMatch(/^----=/);
-      expect(b).toMatch(/^----=/);
-      expect(a).not.toBe(b);
-    });
-  });
-
   describe('getCharset', () => {
     it('extracts charset token ignoring quotes', () => {
       const ct = 'text/plain; charset="iso-8859-2"; format=flowed';
@@ -43,31 +26,6 @@ describe('index.ts core helpers (Batch B)', () => {
       const parsed: any = parseEml(eml);
       expect(parsed.headers.Subject).toBe('Demo');
       expect(parsed.body).toBe('Body line\r\n');
-    });
-  });
-
-  describe('buildEml + parseEml round trip', () => {
-    it('builds multipart with text, html and attachment then parses back', () => {
-      const data: any = {
-        headers: {
-          'From': 'Tester <tester@example.com>',
-          'To': 'dest@example.com',
-          'Subject': 'RoundTrip',
-          'Content-Type': 'multipart/mixed; boundary="RTBOUND"',
-        },
-        text: 'Plain body',
-        html: '<p>Hi</p>',
-        attachments: [
-          { filename: 'file.txt', contentType: 'text/plain', data: 'FileContent' },
-        ],
-      };
-      const eml = buildEml(data) as string;
-      expect(eml).toMatch(/multipart\/mixed/);
-      expect(eml).toMatch(/filename="file.txt"/);
-      const reparsed: any = readEml(eml);
-      expect(reparsed.text).toContain('Plain body');
-      expect((reparsed.html || '')).toContain('<p>Hi</p>');
-      expect(reparsed.attachments && reparsed.attachments.length).toBe(1);
     });
   });
 

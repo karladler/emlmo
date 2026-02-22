@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { encode, decode, convert, arr2str } from '../../src/charset';
+import { encode, decode, convert, arr2str } from '../../src/lib/charset';
 
 describe('charset utilities', () => {
   it('normalizes utf variants and decodes', () => {
