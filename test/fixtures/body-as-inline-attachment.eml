@@ -1,0 +1,24 @@
+Date: Sun, 23 Apr 2023 00:23:08 +0200
+Message-ID:
+  <CAGFso0R6WbMomMx6mFFJzt_wiL8wRm3sN0YQwXz12Ugbt72XSw@mail.gmail.com>
+Subject: A subject with spaces
+From: =?UTF-8?Q?Nobody_there?= <dummyEmail@emailClient.com>
+To: =?UTF-8?Q?Nobody_here?= <dummyEmail2@emailClient.com>
+Content-Type: multipart/alternative; boundary="=_ohFeHkpibN03-stIVrreU01"
+
+
+
+--=_ohFeHkpibN03-stIVrreU01
+Content-Type: text/plain; charset=utf-8; format=flowed; DelSp=Yes
+Content-Disposition: inline
+Content-Description: Message en texte brut
+
+Test
+
+--=_ohFeHkpibN03-stIVrreU01
+Content-Type: text/html; charset=utf-8
+Content-Disposition: inline
+Content-Description: Message HTML
+
+<div>Test</div>
+--=_ohFeHkpibN03-stIVrreU01--

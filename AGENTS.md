@@ -7,3 +7,4 @@
 
 It parses raw .eml files into structured objects including headers, body (text/html), attachments, and metadata. The library is environment-agnostic, dependency-light, and fully typed.
 All functions are unit tested.
+Attachments are handled as defined in RFC 2045/2046 (MIME)

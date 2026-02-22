@@ -371,6 +371,65 @@ function read(
 		}
 	}
 
+	/**
+	 * Workaround for eml-parse-js issue #52
+	 * When Content-Disposition: inline is present, body parts are parsed as attachments
+	 * instead of being used for html/text properties.
+	 * @see: https://github.com/MQpeng/eml-parse-js/issues/52
+	 */
+	function fixInlineBodyContent(eml: ReadedEmlJson): ReadedEmlJson {
+		if (!eml.attachments || eml.attachments.length === 0) {
+			return eml;
+		}
+
+		const htmlAttachment = eml.attachments.find(
+			(a) => a.inline === true && a.contentType.startsWith('text/html'),
+		);
+		const textAttachment = eml.attachments.find(
+			(a) => a.inline === true && a.contentType.startsWith('text/plain'),
+		);
+
+		if (htmlAttachment && !eml.html) {
+			if (htmlAttachment.data) {
+				if (typeof htmlAttachment.data === 'string') {
+					eml.html = htmlAttachment.data;
+				} else {
+					eml.html = new TextDecoder().decode(htmlAttachment.data);
+				}
+			} else if (htmlAttachment.data64) {
+				try {
+					eml.html = atob(htmlAttachment.data64);
+				} catch {
+					eml.html = htmlAttachment.data64;
+				}
+			}
+		}
+
+		if (textAttachment && !eml.text) {
+			if (textAttachment.data) {
+				if (typeof textAttachment.data === 'string') {
+					eml.text = textAttachment.data;
+				} else {
+					eml.text = new TextDecoder().decode(textAttachment.data);
+				}
+			} else if (textAttachment.data64) {
+				try {
+					eml.text = atob(textAttachment.data64);
+				} catch {
+					eml.text = textAttachment.data64;
+				}
+			}
+		}
+
+		if (htmlAttachment || textAttachment) {
+			eml.attachments = eml.attachments.filter(
+				(a) => a !== htmlAttachment && a !== textAttachment,
+			);
+		}
+
+		return eml;
+	}
+
 	function _read(data: ParsedEmlJson): ReadedEmlJson | Error | string {
 		if (!data) return 'no data';
 		try {
@@ -433,7 +492,7 @@ function read(
 			} else if (typeof data.body === 'string') {
 				_append(data.headers, data.body, result);
 			}
-			return result;
+			return fixInlineBodyContent(result);
 		} catch (e) {
 			return e as any;
 		}
